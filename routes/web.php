@@ -1,7 +1,11 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
+use App\Http\Livewire\Courses\Read;
+use App\Http\Livewire\StudentIndex;
+use App\Http\Livewire\TeacherIndex;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
+use App\Http\Livewire\Teacher\EnrolledStudents;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,12 +19,27 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('auth.login');
+})->name('welcome');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::group(['middleware' => ['role:super-admin|admin']], function () {
+        Route::get('admin', TeacherIndex::class)->name('admin.index');
+    });
+    Route::group(['middleware' => ['role:teacher']], function () {
+        Route::get('teacher/home', TeacherIndex::class)->name('teacher.index');
+        Route::get('teacher/courses', Read::class)->name('teacher.courses');
+        // Route::get('teacher/enrolled-students/{id}', EnrolledStudents::class)->name('teacher.enrolled-students');
+    });
+    Route::group(['middleware' => ['role:student']], function () {
+        Route::get('student/home', StudentIndex::class)->name('student.index');
+        Route::get('student/courses', Read::class)->name('student.courses');
+    });
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -28,4 +47,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

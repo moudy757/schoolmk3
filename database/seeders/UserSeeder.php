@@ -11,6 +11,9 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class UserSeeder extends Seeder
 {
+    public function __construct(private CourseSeeder $course)
+    {
+    }
     /**
      * Run the database seeds.
      */
@@ -28,22 +31,38 @@ class UserSeeder extends Seeder
             'password' => Hash::make('admin'),
         ])->assignRole('admin');
 
-        $teacher = Teacher::create([
+        $teacher1 = Teacher::create([
             'dob' => '1995-5-15',
         ]);
 
-        $teacher->user()->create([
-            'name' => 'teacher',
+        $teacher1->user()->create([
+            'name' => 'Teacher',
             'email' => 'teacher@mail.com',
             'password' => Hash::make('teacher'),
         ])->assignRole('teacher');
 
+        $teacher2 = Teacher::create([
+            'dob' => '1995-5-15',
+        ]);
+
+        $teacher2->user()->create([
+            'name' => 'Teacher2',
+            'email' => 'teacher2@mail.com',
+            'password' => Hash::make('teacher'),
+        ])->assignRole('teacher');
+
+        for ($i = 1; $i <= 5; $i++) {
+            $this->course->run($teacher1->id);
+            $this->course->run($teacher2->id);
+        }
+
         $student = Student::create([
-            'dob' => '2005-5-15,'
+            'dob' => '2005-5-15',
+            'level' => '3'
         ]);
 
         $student->user()->create([
-            'name' => 'student',
+            'name' => 'Student',
             'email' => 'student@mail.com',
             'password' => Hash::make('student'),
         ])->assignRole('student');

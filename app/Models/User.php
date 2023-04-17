@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable
 {
@@ -47,5 +48,16 @@ class User extends Authenticatable
     public function userable(): MorphTo
     {
         return $this->morphTo();
+    }
+
+    public function userHome()
+    {
+        if ($this->hasRole(['super-admin', 'admin'])) {
+            return 'admin/home';
+        } elseif ($this->hasRole('teacher')) {
+            return 'teacher/home';
+        } elseif ($this->hasRole('student')) {
+            return 'student/home';
+        }
     }
 }
