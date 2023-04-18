@@ -16,7 +16,7 @@ class CourseSeeder extends Seeder
         Course::create([
             'name' => fake()->unique()->name(),
             'description' => fake()->sentence(15),
-            'level' => fake()->numberBetween(1, 3),
+            'level' => 3,
             'teacher_id' => $id,
         ]);
     }

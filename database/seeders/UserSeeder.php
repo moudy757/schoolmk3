@@ -56,15 +56,28 @@ class UserSeeder extends Seeder
             $this->course->run($teacher2->id);
         }
 
-        $student = Student::create([
+        $student1 = Student::create([
             'dob' => '2005-5-15',
             'level' => '3'
         ]);
 
-        $student->user()->create([
+        $student1->user()->create([
             'name' => 'Student',
             'email' => 'student@mail.com',
             'password' => Hash::make('student'),
         ])->assignRole('student');
+
+        for ($i = 1; $i <= 14; $i++) {
+            $student2 = Student::create([
+                'dob' => '2005-5-15',
+                'level' => '3'
+            ]);
+
+            $student2->user()->create([
+                'name' => fake()->name(),
+                'email' => fake()->unique()->email(),
+                'password' => Hash::make('student'),
+            ])->assignRole('student');
+        }
     }
 }

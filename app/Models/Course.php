@@ -19,16 +19,11 @@ class Course extends Model
         'teacher_id',
     ];
 
+    protected $with = ['students'];
+
     public function teacher(): BelongsTo
     {
         return $this->belongsTo(Teacher::class);
-    }
-
-    public static function search($search)
-    {
-        return empty($search)
-            ? static::query()
-            : static::query()->where('name', 'like', '%' . $search . '%');
     }
 
     public function students(): BelongsToMany
@@ -36,6 +31,13 @@ class Course extends Model
         return $this->belongsToMany(Student::class)
             ->as('enrolled')
             ->withTimestamps()
-            ->withPivot('grade');
+            ->withPivot(['grade', 'student_name']);
+    }
+
+    public static function search($search)
+    {
+        return empty($search)
+            ? static::query()
+            : static::query()->where('name', 'like', '%' . $search . '%');
     }
 }

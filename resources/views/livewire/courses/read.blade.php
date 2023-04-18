@@ -19,7 +19,7 @@
         {{-- Add Course Button --}}
         <livewire:courses.create />
         @endrole
-        {{-- Table --}}
+        {{-- Table Actions --}}
         <div class="overflow-hidden shadow-lg rounded-lg bg-gray-700 py-8 w-full mx-auto">
 
             <div class="flex p-3 justify-between mx-8 mb-8">
@@ -63,7 +63,7 @@
                 </div>
                 @endrole
             </div>
-            {{-- Table Content --}}
+            {{-- Table --}}
             <div class="w-full table text-center">
                 <div class="table-header-group text-base">
                     <div class="table-row">
@@ -83,7 +83,7 @@
                 </div>
                 {{-- Table Body --}}
                 <div x-data="{ selected: null }" class="table-row-group">
-                    @foreach ($courses as $course)
+                    @forelse ($courses as $course)
                     <div class="px-8 py-6 table-row text-lg">
                         <div class="py-4 px-8 table-cell w-5/12 font-bold text-left"
                             :class="selected == {{ $course->id }} ? 'text-indigo-600' : ''">{{ $course->name }}
@@ -133,9 +133,21 @@
                             @endrole
                         </div>
                     </div>
-                    @endforeach
+                    @php
+                    $record = false
+                    @endphp
+                    @empty
+                    @php
+                    $record = true
+                    @endphp
+                    @endforelse
                 </div>
             </div>
+            @if ($record)
+            <div class="flex flex-col justify-center items-center space-y-10">
+                <p class="mt-10 text-lg">No courses enrolled yet.</p>
+            </div>
+            @endif
             {{-- Pagination --}}
             <div class="mx-6 mt-6 hidden xl:block">
                 {{ $courses->onEachSide(1)->links() }}

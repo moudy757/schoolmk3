@@ -14,6 +14,7 @@ class Read extends Component
     public $search = '';
     public $orderBy = 'name';
     public $orderAsc = true;
+
     public $enrolled = true;
 
     protected $listeners = [
@@ -26,7 +27,6 @@ class Read extends Component
             return view('livewire.courses.read', [
                 'courses' => Course::search($this->search)
                     ->where('teacher_id', auth()->user()->userable->id)
-                    ->with('students')
                     ->orderBy($this->orderBy, $this->orderAsc ? 'asc' : 'desc')
                     ->paginate($this->perPage),
             ]);

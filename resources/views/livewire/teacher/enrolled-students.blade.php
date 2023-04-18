@@ -1,5 +1,5 @@
 <div>
-    <x-secondary-button wire:click="openModalToViewStudents" class="float-right mr-6 mb-4 dark:bg-gray-900">
+    <x-secondary-button wire:click="openModalToViewStudents" class="my-4 dark:bg-gray-900">
         {{ __('Enrolled Students') }}
     </x-secondary-button>
 
@@ -10,8 +10,9 @@
             </div>
         </x-slot:title>
         <x-slot:content>
+
             <div class="p-4 space-y-6">
-                @foreach ($course->students as $student)
+                @foreach ($students as $student)
                 <div class="grid grid-cols-2 bg-gray-900 px-8 py-4 rounded-lg">
                     <div class="space-y-4">
                         <div class="flex gap-2">
@@ -25,10 +26,10 @@
                     </div>
                     <div x-data="{ open: false }" class="flex gap-2 items-center">
                         <h1>Grade:</h1>
-                        <p @click="open = true"
+                        <p @click="open = true; $wire.resetter()"
                             class="hover:text-indigo-600 cursor-pointer bg-gray-800 py-2 px-4 rounded-lg">{{
                             $student->enrolled->grade }}</p>
-                        <div x-show="open" @click.outside="open = false" class="space-y-4">
+                        <div x-show="open" @click.outside="open = false; $wire.resetter()" class="space-y-4">
                             <x-text-input wire:model.debounce.500='grade' id="grade" class="block w-full" type="text"
                                 name="grade" :value="old('grade')" autofocus
                                 wire:keydown.enter="update({{ $student->id }})" />
@@ -36,8 +37,10 @@
                         </div>
                     </div>
                 </div>
-                {{-- {{ $student->enrolled->grade }} --}}
                 @endforeach
+            </div>
+            <div class="mt-4 bg-gray-900 py-4 px-8 rounded-lg">
+                {{ $students->onEachSide(1)->links() }}
             </div>
         </x-slot:content>
         <x-slot:buttons>

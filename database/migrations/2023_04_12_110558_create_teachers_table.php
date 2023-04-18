@@ -14,6 +14,9 @@ return new class extends Migration
         Schema::create('teachers', function (Blueprint $table) {
             $table->id();
             $table->date('dob');
+
+            $table->softDeletes();
+
             $table->timestamps();
         });
     }
