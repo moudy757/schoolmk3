@@ -1,5 +1,5 @@
-<div class="w-1/3 mt-8">
-    <x-secondary-button wire:click="openModalToCreateArticle" class="float-right mr-6 mb-4">
+<div class="">
+    <x-secondary-button wire:click="openModalToCreateArticle" class="float-right mr-6 mb-4 dark:bg-gray-900">
         {{ __('Add Article') }}
     </x-secondary-button>
 

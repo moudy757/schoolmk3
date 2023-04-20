@@ -1,24 +1,24 @@
 <div>
-    <x-secondary-button wire:click="openModalToDeleteCourse">
+    <x-secondary-button wire:click="openModalToDeleteUser">
         <i class="fa-solid fa-trash"></i>
     </x-secondary-button>
 
     <x-custom-modal wire:model="openModal" maxWidth="lg">
         <x-slot:title>
             <div class="text-2xl mb-4 flex justify-center items-center">
-                <span>{{ __('Delete Course') }}</span>
+                <span>{{ __('Delete User') }}</span>
             </div>
         </x-slot:title>
         <x-slot:content>
-            <form wire:submit.prevent='delete' class="space-y-4" id="deleteCourseForm">
+            <form wire:submit.prevent='delete' class="space-y-4" id="deleteUserForm">
                 @csrf
 
                 <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
-                    {{ __('Are you sure you want to delete this course?') }}
+                    {{ __('Are you sure you want to delete this user?') }}
                 </h2>
 
                 <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                    {{ __('Please enter your password to confirm.') }}
+                    {{ __('Please enter deletion password to confirm.') }}
                 </p>
 
                 <div class="mt-6">

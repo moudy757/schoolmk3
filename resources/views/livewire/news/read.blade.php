@@ -1,7 +1,11 @@
 <div>
+    @role('admin')
+    <livewire:news.create class="float-right" />
+    @endrole
+
     <div class="flex flex-col space-y-10 items-center justify-center 2xl:w-3/4 mx-auto" x-data="{ selected: null }">
         @foreach ($news as $newsArticle)
-        <div>
+        <div class="w-full">
             <div class="">
                 <h1 class="py-2 px-4 w-fit bg-gray-700 rounded-t-lg"
                     :class="selected == {{ $newsArticle->id }} ? 'text-indigo-600' : ''">{{ $newsArticle->name }}</h1>

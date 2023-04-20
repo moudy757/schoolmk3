@@ -46,6 +46,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    // protected $with = ['userable'];
+
     public function userable(): MorphTo
     {
         return $this->morphTo();
@@ -60,5 +62,15 @@ class User extends Authenticatable
         } elseif ($this->hasRole('student')) {
             return 'student/home';
         }
+    }
+
+    public static function search($search)
+    {
+        return empty($search)
+            ? static::query()
+            : static::query()
+            ->where('name', 'like', '%' . $search . '%')
+            // ->orWhere('login_id', 'like', '%' . $search . '%')
+            ->orWhere('email', 'like', '%' . $search . '%');
     }
 }

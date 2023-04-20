@@ -1,5 +1,7 @@
 <div>
-    <x-secondary-button wire:click='openModalToUpdateCourse'><i class="fa-solid fa-pen"></i></x-secondary-button>
+    <x-secondary-button wire:click='openModalToUpdateCourse'>
+        <i class="fa-solid fa-pen"></i>
+    </x-secondary-button>
 
     <x-custom-modal wire:model="openModal" maxWidth="lg">
         <x-slot:title>

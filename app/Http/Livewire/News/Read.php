@@ -17,7 +17,7 @@ class Read extends Component
     public function render()
     {
         return view('livewire.news.read', [
-            'news' => News::paginate(5),
+            'news' => News::latest()->paginate(5),
         ]);
     }
 }

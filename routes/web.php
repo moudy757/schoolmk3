@@ -5,6 +5,7 @@ use App\Http\Livewire\StudentIndex;
 use App\Http\Livewire\TeacherIndex;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
+use App\Http\Livewire\AdminIndex;
 use App\Http\Livewire\Teacher\EnrolledStudents;
 
 /*
@@ -27,13 +28,14 @@ Route::get('/', function () {
 // })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::group(['middleware' => ['role:super-admin|admin']], function () {
-        Route::get('admin', TeacherIndex::class)->name('admin.index');
+    Route::group(['middleware' => ['role:admin']], function () {
+        Route::get('admin/home', AdminIndex::class)->name('admin.index');
+        Route::get('admin/users', AdminIndex::class)->name('admin.users');
+        Route::get('admin/add-users', AdminIndex::class)->name('admin.add-user');
     });
     Route::group(['middleware' => ['role:teacher']], function () {
         Route::get('teacher/home', TeacherIndex::class)->name('teacher.index');
         Route::get('teacher/courses', Read::class)->name('teacher.courses');
-        // Route::get('teacher/enrolled-students/{id}', EnrolledStudents::class)->name('teacher.enrolled-students');
     });
     Route::group(['middleware' => ['role:student']], function () {
         Route::get('student/home', StudentIndex::class)->name('student.index');

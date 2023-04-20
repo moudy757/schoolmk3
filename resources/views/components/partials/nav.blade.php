@@ -43,8 +43,28 @@
                 </x-nav-link>
             </li>
             @endrole
+
+            @role('admin')
+            <li class="flex gap-4 items-center">
+                <x-nav-link :href="route('admin.index')" :active="request()->routeIs('admin.index')" class="space-x-2">
+                    <i class="fa-solid fa-house"></i>
+                    <span>Home</span>
+                </x-nav-link>
+            </li>
+            <li class="flex gap-4 items-center">
+                <x-nav-link :href="route('admin.add-user')" :active="request()->routeIs('admin.add-user')"
+                    class="space-x-2">
+                    <i class="fa-solid fa-person-circle-plus"></i>
+                    <span>Add User</span>
+                </x-nav-link>
+            </li>
+            <li class="flex gap-4 items-center">
+                <x-nav-link :href="route('admin.users')" :active="request()->routeIs('admin.users')" class="space-x-2">
+                    <i class="fa-solid fa-people-group"></i>
+                    <span>Users</span>
+                </x-nav-link>
+            </li>
+            @endrole
         </div>
-
-
     </ul>
 </nav>
