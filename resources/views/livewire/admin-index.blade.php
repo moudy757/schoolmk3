@@ -56,5 +56,18 @@
             color: '#f3f4f6',
         });
     });
+
+    Livewire.on('created', function (e) {
+        Swal.fire({
+            title: e.title,
+            icon: e.icon,
+            iconColor: e.iconColor,
+            toast: false,
+            position: 'center',
+            showConfirmButton: true,
+            background: '#111827',
+            color: '#f3f4f6',
+        });
+    });
 </script>
 @endpush

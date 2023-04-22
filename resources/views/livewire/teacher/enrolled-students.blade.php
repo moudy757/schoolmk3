@@ -39,9 +39,11 @@
                 </div>
                 @endforeach
             </div>
+            @if ($students->hasPages())
             <div class="mt-4 bg-gray-900 py-4 px-8 rounded-lg">
                 {{ $students->onEachSide(1)->links() }}
             </div>
+            @endif
         </x-slot:content>
         <x-slot:buttons>
             <x-secondary-button wire:click="$toggle('openModal')" class="dark:hover:bg-red-700 focus:ring-red-700">

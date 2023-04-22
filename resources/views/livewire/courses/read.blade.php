@@ -146,7 +146,7 @@
             </div>
             @if ($record)
             <div class="flex flex-col justify-center items-center space-y-10">
-                <p class="mt-10 text-lg">No courses enrolled yet.</p>
+                <p class="mt-10 text-lg">No courses yet.</p>
             </div>
             @endif
             {{-- Pagination --}}

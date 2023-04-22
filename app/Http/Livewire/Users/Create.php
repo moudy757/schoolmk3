@@ -2,11 +2,13 @@
 
 namespace App\Http\Livewire\Users;
 
+use App\Mail\UserAdded;
 use App\Models\Student;
 use App\Models\Teacher;
 use Livewire\Component;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class Create extends Component
 {
@@ -23,7 +25,7 @@ class Create extends Component
     {
         return [
             'user.name' => ['required', 'min:2', 'string', 'max:50', 'regex:/^[a-zA-Z0-9\s]+$/'],
-            'user.email' => ['required', 'email'],
+            'user.email' => ['required', 'email', 'unique:users,email'],
             'user.dob' => ['required', 'date'],
             'user.level' => [Rule::requiredIf($this->role == 'student'), 'numeric', 'min:1', 'max:3'],
         ];
@@ -52,27 +54,38 @@ class Create extends Component
                 'dob' => $this->user['dob'],
             ]);
             $password = 'teacher';
-            $role = 'teacher';
+            $role = 'Teacher';
+            $login_id = 'TC';
         } elseif ($this->role == 'student') {
             $user = Student::create([
                 'level' => $this->user['level'],
                 'dob' => $this->user['dob'],
             ]);
             $password = 'student';
-            $role = 'student';
+            $role = 'Student';
+            $login_id = 'ST';
         }
 
-        $user->user()->create([
+        $createdUser = $user->user()->create([
             'name' => $this->user['name'],
             'email' => $this->user['email'],
+            'login_id' => $login_id . date("Y") . str_pad($user->id, 3, '0', STR_PAD_LEFT),
             'password' => Hash::make($password),
         ])->assignRole($role);
 
-        $this->emit('updated', [
-            'title'         => 'User added successfully!',
+        $userData = [
+            'id' => $createdUser->login_id,
+            'name' => $createdUser->name,
+            'pass' => $password,
+        ];
+
+        $this->emit('created', [
+            'title'         => 'User added successfully!' . '<br/>' . $role . ' ID: ' . $createdUser->login_id,
             'icon'          => 'success',
             'iconColor'     => 'green',
         ]);
+
+        Mail::to($createdUser)->send(new UserAdded($userData));
 
         $this->emit('saved');
         $this->reset();

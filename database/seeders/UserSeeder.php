@@ -19,15 +19,17 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        User::create([
-            'name' => 'Super Admin',
-            'email' => 'super@mail.com',
-            'password' => Hash::make('super'),
-        ])->assignRole('super-admin');
+        // User::create([
+        //     'name' => 'Super Admin',
+        //     'email' => 'super@mail.com',
+        //     'login_id' => 'SUPER-' . date("Y") . str_pad(1, 3, '0', STR_PAD_LEFT),
+        //     'password' => Hash::make('super'),
+        // ])->assignRole('super-admin');
 
         User::create([
             'name' => 'Admin',
             'email' => 'admin@mail.com',
+            'login_id' => 'ADMIN' . date("Y") . str_pad(1, 3, '0', STR_PAD_LEFT),
             'password' => Hash::make('admin'),
         ])->assignRole('admin');
 
@@ -38,6 +40,7 @@ class UserSeeder extends Seeder
         $teacher1->user()->create([
             'name' => 'Teacher',
             'email' => 'teacher@mail.com',
+            'login_id' => 'TC' . date("Y") . str_pad($teacher1->id, 3, '0', STR_PAD_LEFT),
             'password' => Hash::make('teacher'),
         ])->assignRole('teacher');
 
@@ -48,6 +51,7 @@ class UserSeeder extends Seeder
         $teacher2->user()->create([
             'name' => 'Teacher2',
             'email' => 'teacher2@mail.com',
+            'login_id' => 'TC' . date("Y") . str_pad($teacher2->id, 3, '0', STR_PAD_LEFT),
             'password' => Hash::make('teacher'),
         ])->assignRole('teacher');
 
@@ -64,6 +68,7 @@ class UserSeeder extends Seeder
         $student1->user()->create([
             'name' => 'Student',
             'email' => 'student@mail.com',
+            'login_id' => 'ST' . date("Y") . str_pad($student1->id, 3, '0', STR_PAD_LEFT),
             'password' => Hash::make('student'),
         ])->assignRole('student');
 
@@ -76,6 +81,7 @@ class UserSeeder extends Seeder
             $student2->user()->create([
                 'name' => fake()->name(),
                 'email' => fake()->unique()->email(),
+                'login_id' => 'ST' . date("Y") . str_pad($student2->id, 3, '0', STR_PAD_LEFT),
                 'password' => Hash::make('student'),
             ])->assignRole('student');
         }
