@@ -20,7 +20,7 @@ use App\Http\Livewire\Teacher\EnrolledStudents;
 */
 
 Route::get('/', function () {
-    return view('auth.login');
+    return redirect()->route('login');
 })->name('welcome');
 
 // Route::get('/dashboard', function () {
