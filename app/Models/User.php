@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Providers\RouteServiceProvider;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Traits\HasRoles;
@@ -57,11 +59,11 @@ class User extends Authenticatable
     public function userHome()
     {
         if ($this->hasRole(['super-admin', 'admin'])) {
-            return 'admin/home';
+            return RouteServiceProvider::ADMIN;
         } elseif ($this->hasRole('teacher')) {
-            return 'teacher/home';
+            return RouteServiceProvider::TEACHER;
         } elseif ($this->hasRole('student')) {
-            return 'student/home';
+            return RouteServiceProvider::STUDENT;
         }
     }
 
