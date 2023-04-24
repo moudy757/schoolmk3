@@ -55,7 +55,7 @@ class Create extends Component
             ]);
             $password = 'teacher';
             $role = 'Teacher';
-            $login_id = 'TC';
+            $login_id = 'tc';
         } elseif ($this->role == 'student') {
             $user = Student::create([
                 'level' => $this->user['level'],
@@ -63,7 +63,7 @@ class Create extends Component
             ]);
             $password = 'student';
             $role = 'Student';
-            $login_id = 'ST';
+            $login_id = 'st';
         }
 
         $createdUser = $user->user()->create([
