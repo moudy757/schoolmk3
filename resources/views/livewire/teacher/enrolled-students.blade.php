@@ -46,7 +46,8 @@
             @endif
         </x-slot:content>
         <x-slot:buttons>
-            <x-secondary-button wire:click="$toggle('openModal')" class="dark:hover:bg-red-700 focus:ring-red-700">
+            <x-secondary-button wire:click="$toggle('openModal')"
+                class="dark:hover:bg-indigo-600 focus:ring-indigo-600">
                 {{ __('Done') }}
             </x-secondary-button>
         </x-slot:buttons>
