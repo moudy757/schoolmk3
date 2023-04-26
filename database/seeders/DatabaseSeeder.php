@@ -23,13 +23,6 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             RolesAndPermissionsSeeder::class,
-            User::create([
-                'name' => 'Admin',
-                'email' => 'admin@mail.com',
-                'login_id' => 'admin' . date("Y") . str_pad(1, 3, '0', STR_PAD_LEFT),
-                'password' => Hash::make('admin'),
-            ])->assignRole('admin'),
-
             UserSeeder::class,
             NewsSeeder::class,
         ]);
