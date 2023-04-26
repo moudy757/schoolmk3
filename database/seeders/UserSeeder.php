@@ -26,12 +26,7 @@ class UserSeeder extends Seeder
         //     'password' => Hash::make('super'),
         // ])->assignRole('super-admin');
 
-        User::create([
-            'name' => 'Admin',
-            'email' => 'admin@mail.com',
-            'login_id' => 'admin' . date("Y") . str_pad(1, 3, '0', STR_PAD_LEFT),
-            'password' => Hash::make('admin'),
-        ])->assignRole('admin');
+
 
         $teacher1 = Teacher::create([
             'dob' => '1995-5-15',
