@@ -12,7 +12,7 @@
                 @csrf
 
                 <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
-                    {{ __('Are you sure you want to delete this course?') }}
+                    {{ __('Are you sure you want to drop this course?') }}
                 </h2>
 
                 <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">

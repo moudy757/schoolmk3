@@ -47,7 +47,7 @@
         </x-slot:content>
         <x-slot:buttons>
             <x-secondary-button wire:click="$toggle('openModal')" class="dark:hover:bg-red-700 focus:ring-red-700">
-                {{ __('Nevermind') }}
+                {{ __('Done') }}
             </x-secondary-button>
         </x-slot:buttons>
     </x-custom-modal>
