@@ -80,7 +80,7 @@ class Create extends Component
         ];
 
         $this->emit('created', [
-            'title'         => 'User added successfully!' . '<br/>' . $role . ' ID: ' . $createdUser->login_id,
+            'title'         => 'User added successfully!' . '<br/>' . $role . ' ID: ' . $createdUser->login_id . '<br/> Password: ' . $password,
             'icon'          => 'success',
             'iconColor'     => 'green',
         ]);
