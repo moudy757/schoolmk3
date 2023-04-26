@@ -85,7 +85,7 @@ class Create extends Component
             'iconColor'     => 'green',
         ]);
 
-        Mail::to($createdUser)->send(new UserAdded($userData));
+        // Mail::to($createdUser)->send(new UserAdded($userData));
 
         $this->emit('saved');
         $this->reset();
