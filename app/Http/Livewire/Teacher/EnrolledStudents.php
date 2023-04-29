@@ -73,5 +73,6 @@ class EnrolledStudents extends Component
     public function resetter()
     {
         $this->resetErrorBag();
+        $this->grade = '';
     }
 }
