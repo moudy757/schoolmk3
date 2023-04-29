@@ -67,6 +67,7 @@ class EnrolledStudents extends Component
         ]);
 
         $this->emit('saved');
+        $this->grade = '';
     }
 
     public function resetter()

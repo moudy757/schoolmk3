@@ -34,6 +34,7 @@ class EnrollCourse extends Component
             // $this->exists = $exists;
         } elseif ($student->courses()->count() < 5) {
             $student->courses()->syncWithoutDetaching([$this->course->id, ['student_name' => Auth::user()->name]]);
+
             $this->emit('updated', [
                 'title'         => 'Course enrolled successfully.',
                 'icon'          => 'success',

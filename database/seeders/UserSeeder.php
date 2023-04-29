@@ -55,7 +55,7 @@ class UserSeeder extends Seeder
             'password' => Hash::make('teacher'),
         ])->assignRole('teacher');
 
-        for ($i = 1; $i <= 5; $i++) {
+        for ($i = 1; $i <= 10; $i++) {
             $this->course->run($teacher1->id);
             $this->course->run($teacher2->id);
         }
@@ -72,7 +72,7 @@ class UserSeeder extends Seeder
             'password' => Hash::make('student'),
         ])->assignRole('student');
 
-        for ($i = 1; $i <= 14; $i++) {
+        for ($i = 1; $i <= 19; $i++) {
             $student2 = Student::create([
                 'dob' => '2005-5-15',
                 'level' => '3'
@@ -84,6 +84,8 @@ class UserSeeder extends Seeder
                 'login_id' => 'st' . date("Y") . str_pad($student2->id, 3, '0', STR_PAD_LEFT),
                 'password' => Hash::make('student'),
             ])->assignRole('student');
+
+            $student2->courses()->syncWithoutDetaching([1, ['student_name' => $student2->name]]);
         }
     }
 }
