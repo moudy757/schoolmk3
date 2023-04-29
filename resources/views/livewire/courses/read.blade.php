@@ -101,10 +101,10 @@
                                 </x-secondary-button>
 
                                 @role('student')
+                                @if (! $enrolled)
                                 <livewire:student.enroll-course :course="$course"
                                     :wire:key="'enroll-course-' . $course->id" />
-
-                                @if ($enrolled)
+                                @elseif ($enrolled)
                                 <livewire:student.drop-course :course="$course"
                                     :wire:key="'drop-course-' . $course->id" />
                                 @endif
