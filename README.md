@@ -1,4 +1,4 @@
-[![Laravel Forge Site Deployment Status](https://img.shields.io/endpoint?url=https%3A%2F%2Fforge.laravel.com%2Fsite-badges%2Fc3b493ec-9973-4788-a089-1d0b94828a91%3Fdate%3D1&style=flat)](https://forge.laravel.com/servers/676617/sites/1964087)
+[![Laravel Forge Site Deployment Status](https://img.shields.io/endpoint?url=https%3A%2F%2Fforge.laravel.com%2Fsite-badges%2F0a146a88-69de-4069-a28f-18592a15cca6%3Fdate%3D1&style=flat)](https://forge.laravel.com/servers/676617/sites/1968305)
 
 ## School
 A basic school portal.
