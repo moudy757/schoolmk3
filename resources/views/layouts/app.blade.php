@@ -6,6 +6,9 @@
 </head>
 
 <body class="font-sans antialiased dark">
+    <div class="bg-red-900 p-2 text-white text-center text-xl">
+        <h1>DEV Site</h1>
+    </div>
     @hasanyrole('teacher|admin')
     <div class="flex flex-col space-y-10 items-center bg-neutral-900 justify-center lg:hidden h-screen">
         <h1 class="text-base sm:text-2xl text-white text-center">Please use a larger screen device for better
@@ -22,6 +25,7 @@
     </div>
     @endhasanyrole
     <div class="min-h-screen bg-gray-300 dark:bg-gray-800 lg:grid lg:grid-cols-12 2xl:grid-cols-10 hidden">
+
         {{-- @include('layouts.navigation') --}}
         <x-partials.nav />
 

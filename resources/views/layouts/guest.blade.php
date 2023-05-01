@@ -19,6 +19,9 @@
 </head>
 
 <body class="font-sans text-gray-900 antialiased dark">
+    <div class="bg-red-900 p-2 text-white text-center text-xl">
+        <h1>DEV Site</h1>
+    </div>
     <div class="h-screen py-10 bg-gray-100 dark:bg-gray-900">
         <div class="mb-10">
             <a href="/">
