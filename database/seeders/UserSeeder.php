@@ -78,14 +78,14 @@ class UserSeeder extends Seeder
                 'level' => '3'
             ]);
 
-            $student2->user()->create([
+            $user = $student2->user()->create([
                 'name' => fake()->name(),
                 'email' => fake()->unique()->email(),
                 'login_id' => 'st' . date("Y") . str_pad($student2->id, 3, '0', STR_PAD_LEFT),
                 'password' => Hash::make('student'),
             ])->assignRole('student');
 
-            $student2->courses()->syncWithoutDetaching([1, ['student_name' => $student2->name]]);
+            $student2->courses()->attach(1, ['student_name' => $user->name]);
         }
     }
 }

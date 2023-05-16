@@ -37,10 +37,12 @@ class Read extends Component
                     ->when(
                         $this->enrolled,
                         function ($query) {
-                            return $query->has('students');
+                            return $query->whereRelation('students', 'student_id', auth()->user()->userable->id);
                         },
                         function ($query) {
-                            return $query->doesntHave('students');
+                            return $query->whereDoesntHave('students', function ($query) {
+                                $query->where('student_id', auth()->user()->userable->id);
+                            });
                         }
                     )
                     ->orderBy($this->orderBy, $this->orderAsc ? 'asc' : 'desc')

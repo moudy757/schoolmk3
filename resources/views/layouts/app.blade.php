@@ -6,23 +6,23 @@
 </head>
 
 <body class="font-sans antialiased dark">
-    <div class="bg-red-900 p-2 text-white text-center text-xl">
+    {{-- <div class="bg-red-900 p-2 text-white text-center text-xl">
         <h1>DEV Site</h1>
-    </div>
+    </div> --}}
     @hasanyrole('teacher|admin')
-    <div class="flex flex-col space-y-10 items-center bg-neutral-900 justify-center lg:hidden h-screen">
-        <h1 class="text-base sm:text-2xl text-white text-center">Please use a larger screen device for better
-            experience.</h1>
-        {{-- Logout Button --}}
-        <form method="POST" action="{{ route('logout') }}">
-            @csrf
+        <div class="flex flex-col space-y-10 items-center bg-neutral-900 justify-center lg:hidden h-screen">
+            <h1 class="text-base sm:text-2xl text-white text-center">Please use a larger screen device for better
+                experience.</h1>
+            {{-- Logout Button --}}
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
 
-            <a :href="route('logout')" onclick="event.preventDefault(); this.closest('form').submit();"
-                class="bg-neutral-700 px-4 py-2 rounded-lg cursor-pointer hover:bg-neutral-800 hover:text-indigo-600">
-                {{ __('Log Out') }}
-            </a>
-        </form>
-    </div>
+                <a :href="route('logout')" onclick="event.preventDefault(); this.closest('form').submit();"
+                    class="bg-neutral-700 px-4 py-2 rounded-lg cursor-pointer hover:bg-neutral-800 hover:text-indigo-600">
+                    {{ __('Log Out') }}
+                </a>
+            </form>
+        </div>
     @endhasanyrole
     <div class="min-h-screen bg-gray-300 dark:bg-gray-800 lg:grid lg:grid-cols-12 2xl:grid-cols-10 hidden">
 
@@ -60,7 +60,8 @@
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
 
-                                <x-dropdown-link :href="route('logout')" onclick="event.preventDefault();
+                                <x-dropdown-link :href="route('logout')"
+                                    onclick="event.preventDefault();
                                                 this.closest('form').submit();">
                                     {{ __('Log Out') }}
                                 </x-dropdown-link>

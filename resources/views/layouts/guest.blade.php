@@ -19,9 +19,9 @@
 </head>
 
 <body class="font-sans text-gray-900 antialiased dark">
-    <div class="bg-red-900 p-2 text-white text-center text-xl">
+    {{-- <div class="bg-red-900 p-2 text-white text-center text-xl">
         <h1>DEV Site</h1>
-    </div>
+    </div> --}}
     <div class="h-screen py-10 bg-gray-100 dark:bg-gray-900">
         <div class="mb-10">
             <a href="/">
@@ -29,15 +29,16 @@
             </a>
         </div>
 
-        <div @class(['sm:grid sm:grid-cols-2 flex flex-col gap-10 items-center justify-items-center h-[90%]'=>
-            isset($welcome),
+        <div @class([
+            'sm:grid sm:grid-cols-2 flex flex-col gap-10 items-center justify-items-center h-[90%]' => isset(
+                $welcome),
             'flex justify-center h-[90%] items-center' => !isset($welcome),
-            ])>
+        ])>
 
             @if (isset($welcome))
-            <div>
-                {{ $welcome }}
-            </div>
+                <div>
+                    {{ $welcome }}
+                </div>
             @endif
 
             <div
