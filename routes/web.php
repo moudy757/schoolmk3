@@ -6,6 +6,7 @@ use App\Http\Livewire\TeacherIndex;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Livewire\AdminIndex;
+use App\Http\Livewire\Student\ViewGrades;
 use App\Http\Livewire\Teacher\EnrolledStudents;
 
 /*
@@ -41,6 +42,7 @@ Route::middleware(['auth'])->group(function () {
         Route::group(['middleware' => ['role:student']], function () {
             Route::get('student/home', StudentIndex::class)->name('student.index');
             Route::get('student/courses', Read::class)->name('student.courses');
+            Route::get('student/grades', ViewGrades::class)->name('student.grades');
         });
     });
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

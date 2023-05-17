@@ -23,10 +23,8 @@
         <h1>DEV Site</h1>
     </div> --}}
     <div class="h-screen py-10 bg-gray-100 dark:bg-gray-900">
-        <div class="mb-10">
-            <a href="/">
-                <x-application-logo class="h-20 w-auto block text-indigo-600 mx-auto hover:text-black" />
-            </a>
+        <div class="">
+            <x-application-logo class="h-20 w-auto block text-indigo-600 mx-auto" />
         </div>
 
         <div @class([

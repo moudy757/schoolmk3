@@ -9,12 +9,13 @@
     {{-- <div class="bg-red-900 p-2 text-white text-center text-xl">
         <h1>DEV Site</h1>
     </div> --}}
-    @hasanyrole('teacher|admin')
+
+    {{-- @hasanyrole('teacher|admin')
         <div class="flex flex-col space-y-10 items-center bg-neutral-900 justify-center lg:hidden h-screen">
             <h1 class="text-base sm:text-2xl text-white text-center">Please use a larger screen device for better
-                experience.</h1>
-            {{-- Logout Button --}}
-            <form method="POST" action="{{ route('logout') }}">
+                experience.</h1> --}}
+    {{-- Logout Button --}}
+    {{-- <form method="POST" action="{{ route('logout') }}">
                 @csrf
 
                 <a :href="route('logout')" onclick="event.preventDefault(); this.closest('form').submit();"
@@ -23,8 +24,8 @@
                 </a>
             </form>
         </div>
-    @endhasanyrole
-    <div class="min-h-screen bg-gray-300 dark:bg-gray-800 lg:grid lg:grid-cols-12 2xl:grid-cols-10 hidden">
+    @endhasanyrole --}}
+    <div class="min-h-screen bg-gray-300 dark:bg-gray-800 lg:grid lg:grid-cols-12 2xl:grid-cols-10">
 
         {{-- @include('layouts.navigation') --}}
         <x-partials.nav />
