@@ -21,10 +21,12 @@ class RolesAndPermissionsSeeder extends Seeder
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
         // create permissions
-        // Permission::create(['name' => 'edit articles']);
-        // Permission::create(['name' => 'delete articles']);
-        // Permission::create(['name' => 'publish articles']);
-        // Permission::create(['name' => 'unpublish articles']);
+
+        // Permission::firstOrCreate(['name' => 'create courses']);
+        // Permission::firstOrCreate(['name' => 'read courses']);
+        // Permission::firstOrCreate(['name' => 'update courses']);
+        // Permission::firstOrCreate(['name' => 'delete courses']);
+        Permission::firstOrCreate(['name' => 'add admins']);
 
         // create roles and assign created permissions
 
@@ -36,10 +38,10 @@ class RolesAndPermissionsSeeder extends Seeder
         // $role = Role::create(['name' => 'moderator'])
         //     ->givePermissionTo(['publish articles', 'unpublish articles']);
 
-        // $role = Role::create(['name' => 'super-admin']);
-        $role = Role::create(['name' => 'admin']);
-        $role = Role::create(['name' => 'teacher']);
-        $role = Role::create(['name' => 'student']);
+        $role = Role::firstOrCreate(['name' => 'super-admin'])->givePermissionTo('add admins');
+        $role = Role::firstOrCreate(['name' => 'admin']);
+        $role = Role::firstOrCreate(['name' => 'teacher']);
+        $role = Role::firstOrCreate(['name' => 'student']);
         // $role->givePermissionTo(Permission::all());
     }
 }

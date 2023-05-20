@@ -4,6 +4,9 @@
             <select wire:model="role" id="role" class="rounded-lg bg-gray-800 border-none">
                 <option value="teacher">{{ __('Teacher') }}</option>
                 <option value="student">{{ __('Student') }}</option>
+                @can('add admins')
+                    <option value="admin">{{ __('Admin') }}</option>
+                @endcan
             </select>
         </div>
         <form wire:submit.prevent='create' class="space-y-4" id="addCourseForm">
@@ -33,13 +36,13 @@
             </div>
 
             @if ($role == 'student')
-            {{-- Level --}}
-            <div class="space-y-4">
-                <x-input-label for="user.level" :value="__('Level')" />
-                <x-text-input wire:model.debounce.500='user.level' id="user.level" class="block w-full dark:bg-gray-700"
-                    type="text" />
-                <x-input-error :messages="$errors->get('user.level')" class="" />
-            </div>
+                {{-- Level --}}
+                <div class="space-y-4">
+                    <x-input-label for="user.level" :value="__('Level')" />
+                    <x-text-input wire:model.debounce.500='user.level' id="user.level"
+                        class="block w-full dark:bg-gray-700" type="text" />
+                    <x-input-error :messages="$errors->get('user.level')" class="" />
+                </div>
             @endif
             <div class="flex justify-end">
                 <x-secondary-button wire:target='create' type="submit" wire:loading.attr='disabled'>

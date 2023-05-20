@@ -16,26 +16,28 @@
                     {{-- Name --}}
                     <div class="space-y-4">
                         <x-input-label for="user.name" :value="__('Name')" />
-                        <x-text-input wire:model.debounce.500='user.name' id="name" class="block w-full" type="text"
-                            name="name" :value="old('user.name')" autofocus />
+                        <x-text-input wire:model.debounce.500='user.name' id="name" class="block w-full"
+                            type="text" name="name" :value="old('user.name')" autofocus />
                         <x-input-error :messages="$errors->get('user.name')" class="dark:text-red-700" />
                     </div>
 
                     {{-- Email --}}
                     <div class="space-y-4">
                         <x-input-label for="user.email" :value="__('Email')" />
-                        <x-text-input wire:model.debounce.500='user.email' id="level" class="block w-full" type="text"
-                            name="level" :value="old('user.email')" autofocus />
+                        <x-text-input wire:model.debounce.500='user.email' id="level" class="block w-full"
+                            type="text" name="level" :value="old('user.email')" autofocus />
                         <x-input-error :messages="$errors->get('user.email')" class="dark:text-red-700" />
                     </div>
 
-                    {{-- DOB --}}
-                    <div class="space-y-4">
-                        <x-input-label for="user.userable.dob" :value="__('Date of Birth')" />
-                        <x-text-input wire:model.debounce.500='user.userable.dob' id="level" class="block w-full"
-                            type="text" name="level" :value="old('user.userable.dob')" autofocus />
-                        <x-input-error :messages="$errors->get('user.userable.dob')" class="dark:text-red-700" />
-                    </div>
+                    @unless (empty($user->userable->dob))
+                        {{-- DOB --}}
+                        <div class="space-y-4">
+                            <x-input-label for="user.userable.dob" :value="__('Date of Birth')" />
+                            <x-text-input wire:model.debounce.500='user.userable.dob' id="level" class="block w-full"
+                                type="date" name="level" :value="old('user.userable.dob')" autofocus />
+                            <x-input-error :messages="$errors->get('user.userable.dob')" class="dark:text-red-700" />
+                        </div>
+                    @endunless
 
                 </form>
             </div>

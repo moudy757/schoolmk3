@@ -19,17 +19,17 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::create([
-        //     'name' => 'Super Admin',
-        //     'email' => 'super@mail.com',
-        //     'login_id' => 'SUPER-' . date("Y") . str_pad(1, 3, '0', STR_PAD_LEFT),
-        //     'password' => Hash::make('super'),
-        // ])->assignRole('super-admin');
+        User::create([
+            'name' => 'Super Admin',
+            'email' => 'super@mail.com',
+            'login_id' => 'super' . date("Y") . str_pad(1, 3, '0', STR_PAD_LEFT),
+            'password' => Hash::make('super'),
+        ])->assignRole('super-admin');
 
         User::create([
             'name' => 'Admin',
             'email' => 'admin@mail.com',
-            'login_id' => 'admin' . date("Y") . str_pad(1, 3, '0', STR_PAD_LEFT),
+            'login_id' => 'admin@mail.com',
             'password' => Hash::make('admin'),
         ])->assignRole('admin');
 

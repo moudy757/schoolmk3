@@ -5,7 +5,7 @@
     <x-partials.head :title="$title ?? config('app.name')" />
 </head>
 
-<body class="font-sans antialiased dark">
+<body class="font-comfortaa antialiased dark">
     {{-- <div class="bg-red-900 p-2 text-white text-center text-xl">
         <h1>DEV Site</h1>
     </div> --}}

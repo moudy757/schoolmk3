@@ -47,9 +47,12 @@ class Update extends Component
             'name' => $this->user->name,
             'email' => $this->user->email,
         ]);
-        $this->user->userable->update([
-            'dob' => $this->user->userable->dob,
-        ]);
+        if ($this->user->userable) {
+            $this->user->userable->update([
+                'dob' => $this->user->userable->dob,
+            ]);
+        }
+
         $this->emit('updated', [
             'title'         => 'User updated successfully!',
             'icon'          => 'success',

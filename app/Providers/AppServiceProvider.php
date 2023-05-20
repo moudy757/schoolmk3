@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -23,5 +24,11 @@ class AppServiceProvider extends ServiceProvider
         // if ($this->app->environment('production')) {
         //     URL::forceScheme('https');
         // }
+
+        // Gate::before(function ($user, $ability) {
+        //     if ($user->hasRole('super-admin')) {
+        //         return true;
+        //     }
+        // });
     }
 }

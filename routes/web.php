@@ -30,16 +30,28 @@ Route::get('/', function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::middleware(['password.changed'])->group(function () {
-        Route::group(['middleware' => ['role:admin']], function () {
-            Route::get('admin/home', AdminIndex::class)->name('admin.index');
-            Route::get('admin/users', AdminIndex::class)->name('admin.users');
-            Route::get('admin/add-users', AdminIndex::class)->name('admin.add-user');
+        Route::group([
+            'middleware' => ['role:super-admin|admin'],
+            'as' => 'admin.',
+            'prefix' => 'admin'
+        ], function () {
+            Route::get('home', AdminIndex::class)->name('index');
+            Route::get('users', AdminIndex::class)->name('users');
+            Route::get('add-users', AdminIndex::class)->name('add-user');
         });
-        Route::group(['middleware' => ['role:teacher']], function () {
+        Route::group([
+            'middleware' => ['role:teacher'],
+            'as' => 'teacher.',
+            'prefix' => 'teacher'
+        ], function () {
             Route::get('teacher/home', TeacherIndex::class)->name('teacher.index');
             Route::get('teacher/courses', Read::class)->name('teacher.courses');
         });
-        Route::group(['middleware' => ['role:student']], function () {
+        Route::group([
+            'middleware' => ['role:student'],
+            'as' => 'student.',
+            'prefix' => 'student'
+        ], function () {
             Route::get('student/home', StudentIndex::class)->name('student.index');
             Route::get('student/courses', Read::class)->name('student.courses');
             Route::get('student/grades', ViewGrades::class)->name('student.grades');
