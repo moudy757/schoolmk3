@@ -44,17 +44,17 @@ Route::middleware(['auth'])->group(function () {
             'as' => 'teacher.',
             'prefix' => 'teacher'
         ], function () {
-            Route::get('home', TeacherIndex::class)->name('teacher.index');
-            Route::get('courses', Read::class)->name('teacher.courses');
+            Route::get('home', TeacherIndex::class)->name('index');
+            Route::get('courses', Read::class)->name('courses');
         });
         Route::group([
             'middleware' => ['role:student'],
             'as' => 'student.',
             'prefix' => 'student'
         ], function () {
-            Route::get('home', StudentIndex::class)->name('student.index');
-            Route::get('courses', Read::class)->name('student.courses');
-            Route::get('grades', ViewGrades::class)->name('student.grades');
+            Route::get('home', StudentIndex::class)->name('index');
+            Route::get('courses', Read::class)->name('courses');
+            Route::get('grades', ViewGrades::class)->name('grades');
         });
     });
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
