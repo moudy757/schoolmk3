@@ -24,8 +24,8 @@ class Update extends Component
     protected function rules()
     {
         return [
-            'newsArticle.name' => ['required', 'min:2', 'string', 'max:50', 'regex:/^[a-zA-Z0-9\s]+$/'],
-            'newsArticle.body' => ['required', 'min:5', 'string', 'max:2000', 'regex:/^[a-zA-Z0-9\s_@.\/#&+-?!$]+$/'],
+            'newsArticle.name' => ['required', 'min:2', 'string', 'max:50', 'regex:/^[a-zA-Z0-9\s_@.()\/#&+-?!$]+$/'],
+            'newsArticle.body' => ['required', 'min:5', 'string', 'max:2000', 'regex:/^[a-zA-Z0-9\s_@.()\/#&+-?!$]+$/'],
         ];
     }
 

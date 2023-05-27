@@ -32,9 +32,9 @@ class Create extends Component
     {
         return [
             // 'name' => ['required', 'min:2', 'string', 'max:50', 'regex:/^[a-zA-Z0-9\s]+$/', Rule::unique('courses')->ignore($this->course->id)],
-            'name' => ['required', 'min:2', 'string', 'max:50', 'regex:/^[a-zA-Z0-9\s]+$/'],
-            'body' => ['required', 'min:5', 'string', 'max:1000', 'regex:/^[a-zA-Z0-9\s_@.\/#&+-?!$]+$/'],
-            'forWhom' => ['required', 'min:2', 'string', 'max:20', 'regex:/^[a-zA-Z0-9\s]+$/'],
+            'name' => ['required', 'min:2', 'string', 'max:50', 'regex:/^[a-zA-Z0-9\s_@.()\/#&+-?!$]+$/'],
+            'body' => ['required', 'min:5', 'string', 'max:1000', 'regex:/^[a-zA-Z0-9\s_@.()\/#&+-?!$]+$/'],
+            'forWhom' => ['required', 'min:2', 'string', 'max:20', 'regex:/^[a-zA-Z]+$/'],
             'courseId' => [Rule::requiredIf($this->forWhom == 'students')],
         ];
     }
