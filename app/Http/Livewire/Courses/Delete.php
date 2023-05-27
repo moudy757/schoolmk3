@@ -26,6 +26,7 @@ class Delete extends Component
 
     public function openModalToDeleteCourse()
     {
+        $this->reset('password');
         $this->resetErrorBag();
         $this->openModal = true;
     }

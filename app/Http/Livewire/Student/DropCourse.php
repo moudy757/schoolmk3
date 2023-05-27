@@ -15,6 +15,11 @@ class DropCourse extends Component
         'password' => ['required', 'current_password'],
     ];
 
+    public function updated($propertyName)
+    {
+        $this->validateOnly($propertyName);
+    }
+
     public function render()
     {
         return view('livewire.student.drop-course');
@@ -22,6 +27,7 @@ class DropCourse extends Component
 
     public function openModalToDropCourse()
     {
+        $this->reset('password');
         $this->resetErrorBag();
         $this->openModal = true;
     }

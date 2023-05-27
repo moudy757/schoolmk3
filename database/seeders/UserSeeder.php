@@ -72,7 +72,7 @@ class UserSeeder extends Seeder
             'password' => Hash::make('student'),
         ])->assignRole('student');
 
-        for ($i = 1; $i <= 19; $i++) {
+        for ($i = 1; $i <= 30; $i++) {
             $student2 = Student::create([
                 'dob' => '2005-5-15',
                 'level' => '3'

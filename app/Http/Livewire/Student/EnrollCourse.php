@@ -33,14 +33,21 @@ class EnrollCourse extends Component
             ]);
             // $this->exists = $exists;
         } elseif ($student->courses()->count() < 5) {
-            // $student->courses()->syncWithoutDetaching([$this->course->id, ['student_name' => Auth::user()->name]]);
-            $student->courses()->attach($this->course->id, ['student_name' => Auth::user()->name]);
+            if ($this->course->students->count() < 30) {
+                $student->courses()->attach($this->course->id, ['student_name' => Auth::user()->name]);
 
-            $this->emit('updated', [
-                'title'         => 'Course enrolled successfully.',
-                'icon'          => 'success',
-                'iconColor'     => 'green',
-            ]);
+                $this->emit('updated', [
+                    'title'         => 'Course enrolled successfully.',
+                    'icon'          => 'success',
+                    'iconColor'     => 'green',
+                ]);
+            } else {
+                $this->emit('updated', [
+                    'title'         => 'Too late! Course limit reached.',
+                    'icon'          => 'error',
+                    'iconColor'     => 'red',
+                ]);
+            }
         } else {
             $this->emit('updated', [
                 'title'         => 'Number of allowed courses reached.',
