@@ -21,7 +21,7 @@ class PasswordChanged
 
         if (empty(Auth::user()->password_changed_at)) {
             // ddd(Auth::user()->password_changed_at);
-            return redirect()->route('profile.edit');
+            return redirect()->route('profile.edit')->with('msg', 'Please change your password to a more secure one to be able to proceed.');
         }
 
         return $next($request);

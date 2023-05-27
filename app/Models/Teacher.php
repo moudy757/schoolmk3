@@ -26,6 +26,6 @@ class Teacher extends Model
 
     public function courses(): HasMany
     {
-        return $this->hasMany(Course::class, 'student_courses');
+        return $this->hasMany(Course::class);
     }
 }

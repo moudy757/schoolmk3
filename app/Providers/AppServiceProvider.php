@@ -24,11 +24,5 @@ class AppServiceProvider extends ServiceProvider
         // if ($this->app->environment('production')) {
         //     URL::forceScheme('https');
         // }
-
-        // Gate::before(function ($user, $ability) {
-        //     if ($user->hasRole('super-admin')) {
-        //         return true;
-        //     }
-        // });
     }
 }

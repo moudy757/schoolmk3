@@ -4,7 +4,7 @@
             <select wire:model="role" id="role" class="rounded-lg bg-gray-800 border-none">
                 <option value="teacher">{{ __('Teacher') }}</option>
                 <option value="student">{{ __('Student') }}</option>
-                @can('add admins')
+                @can('admins.create')
                     <option value="admin">{{ __('Admin') }}</option>
                 @endcan
             </select>

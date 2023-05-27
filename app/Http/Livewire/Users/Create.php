@@ -6,6 +6,7 @@ use App\Mail\UserAdded;
 use App\Models\Student;
 use App\Models\Teacher;
 use App\Models\User;
+use Illuminate\Support\Facades\Gate;
 use Livewire\Component;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Hash;
@@ -65,7 +66,7 @@ class Create extends Component
             $password = 'student';
             $role = 'student';
             $login_id = 'st';
-        } elseif ($this->role == 'admin') {
+        } elseif ($this->role == 'admin' && Gate::allows('admins.create')) {
             $createdUser = User::create([
                 'name' => $this->user['name'],
                 'email' => $this->user['email'],
@@ -75,6 +76,8 @@ class Create extends Component
             $password = 'admin';
             $role = 'admin';
             $login_id = $this->user['email'];
+        } else {
+            abort(403);
         }
 
         if ($this->role == 'teacher' || $this->role == 'student') {

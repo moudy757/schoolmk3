@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Course extends Model
 {
@@ -32,6 +33,11 @@ class Course extends Model
             ->as('enrolled')
             ->withTimestamps()
             ->withPivot(['grade', 'student_name']);
+    }
+
+    public function news(): HasMany
+    {
+        return $this->hasMany(News::class);
     }
 
     public static function search($search)

@@ -55,7 +55,7 @@ class UserSeeder extends Seeder
             'password' => Hash::make('teacher'),
         ])->assignRole('teacher');
 
-        for ($i = 1; $i <= 10; $i++) {
+        for ($i = 1; $i <= 4; $i++) {
             $this->course->run($teacher1->id);
             $this->course->run($teacher2->id);
         }

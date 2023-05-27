@@ -48,18 +48,27 @@ class Create extends Component
     {
         $this->validate();
 
-        Course::create([
-            'name' => $this->name,
-            'description' => $this->description,
-            'level' => $this->level,
-            'teacher_id' => auth()->user()->userable->id,
-        ]);
+        if (auth()->user()->userable->courses->count() < 5) {
+            Course::create([
+                'name' => $this->name,
+                'description' => $this->description,
+                'level' => $this->level,
+                'teacher_id' => auth()->user()->userable->id,
+            ]);
 
-        $this->emit('updated', [
-            'title'         => 'Course added successfully!',
-            'icon'          => 'success',
-            'iconColor'     => 'green',
-        ]);
+            $this->emit('updated', [
+                'title'         => 'Course added successfully!',
+                'icon'          => 'success',
+                'iconColor'     => 'green',
+            ]);
+        } else {
+            $this->emit('updated', [
+                'title'         => 'Number of allowed courses reached.',
+                'icon'          => 'error',
+                'iconColor'     => 'red',
+            ]);
+        }
+
 
         $this->emit('saved');
         $this->reset();

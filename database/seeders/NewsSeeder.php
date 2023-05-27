@@ -13,10 +13,13 @@ class NewsSeeder extends Seeder
      */
     public function run(): void
     {
-        for ($i = 1; $i <= 25; $i++) {
+        for ($i = 1; $i <= 5; $i++) {
             News::create([
                 'name' => fake()->unique()->sentence(2),
                 'body' => fake()->paragraph(15),
+                'for_whom' => 'all',
+                'course_id' => null,
+                'user_id' => fake()->numberBetween(1, 2),
             ]);
         }
     }

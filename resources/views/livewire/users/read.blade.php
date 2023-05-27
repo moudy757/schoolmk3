@@ -51,7 +51,9 @@
                     <select wire:model="role" id="role" class="rounded-lg bg-gray-800 border-none">
                         <option value="teacher">{{ __('Teachers') }}</option>
                         <option value="student">{{ __('Students') }}</option>
-                        <option value="admin">{{ __('Admins') }}</option>
+                        @can('admins.create')
+                            <option value="admin">{{ __('Admins') }}</option>
+                        @endcan
                     </select>
                 </div>
             </div>
@@ -92,12 +94,15 @@
                                         <i class="fa-solid fa-eye"></i></span>
                                     </x-secondary-button>
 
-                                    {{-- Edit User Button --}}
-                                    <livewire:users.update :user="$user"
-                                        :wire:key="'edit-user-' . now() . $user->id" />
-
-                                    {{-- Delete User Button --}}
-                                    <livewire:users.delete :user="$user" :wire:key="'delete-user-' . $user->id" />
+                                    @can('users.update`')
+                                        {{-- Edit User Button --}}
+                                        <livewire:users.update :user="$user"
+                                            :wire:key="'edit-user-' . now() . $user->id" />
+                                    @endcan
+                                    @can('users.delete')
+                                        {{-- Delete User Button --}}
+                                        <livewire:users.delete :user="$user" :wire:key="'delete-user-' . $user->id" />
+                                    @endcan
                                 </div>
                             </div>
                         </div>
