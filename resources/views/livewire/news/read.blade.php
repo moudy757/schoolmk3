@@ -30,18 +30,20 @@
                         @endunless
                         <h1 class="py-2 px-4 w-fit">By: {{ $newsArticle->user->name }}</h1>
 
-                        @can('news.update')
-                            <div class="flex justify-between items-center gap-2">
+                        <div class="flex justify-between items-center gap-2">
+                            @if (auth()->id() === $newsArticle->user_id ||
+                                    auth()->user()->can('new.update'))
                                 {{-- Edit News Article Button --}}
                                 <livewire:news.update :newsArticle="$newsArticle"
                                     :wire:key="'edit-news-article-' . now() . $newsArticle->id" />
-                            @endcan
-                            @can('news.delete')
+                            @endif
+                            @if (auth()->id() === $newsArticle->user_id ||
+                                    auth()->user()->can('new.delete'))
                                 {{-- Delete News Article Button --}}
                                 <livewire:news.delete :newsArticle="$newsArticle"
                                     :wire:key="'delete-news-article-' . $newsArticle->id" />
-                            </div>
-                        @endcan
+                            @endif
+                        </div>
                     </div>
                 </div>
             </div>

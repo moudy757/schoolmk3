@@ -25,12 +25,11 @@ class Read extends Component
     public function getNews()
     {
         if (auth()->user()->hasAnyRole('super-admin', 'admin')) {
-            return News::where('for_whom', 'all')
-                ->orWhere('for_whom', 'admins')
-                ->latest()->paginate(5);
+            return News::latest()->paginate(5);
         } elseif (auth()->user()->hasRole('teacher')) {
             return News::where('for_whom', 'all')
                 ->orWhere('for_whom', 'teachers')
+                ->orWhere('user_id', auth()->id())
                 ->latest()->paginate(5);
         } elseif (auth()->user()->hasRole('student')) {
             return News::where('for_whom', 'all')

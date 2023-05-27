@@ -42,6 +42,8 @@ class Update extends Component
 
     public function update()
     {
+        $this->validate();
+
         $this->newsArticle->update([
             'name' => $this->newsArticle->name,
             'description' => $this->newsArticle->description,
