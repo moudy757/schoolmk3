@@ -25,7 +25,7 @@ class Update extends Component
     {
         return [
             'newsArticle.name' => ['required', 'min:2', 'string', 'max:50', 'regex:/^[a-zA-Z0-9\s_@.()\/#&+-?!$]+$/'],
-            'newsArticle.body' => ['required', 'min:5', 'string', 'max:2000', 'regex:/^[a-zA-Z0-9\s_@.()\/#&+-?!$]+$/'],
+            'newsArticle.body' => ['required', 'min:5', 'string', 'max:1000', 'regex:/^[a-zA-Z0-9\s_@.()"\'\/#&+-?!$]+$/'],
         ];
     }
 
