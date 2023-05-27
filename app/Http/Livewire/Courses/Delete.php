@@ -19,6 +19,11 @@ class Delete extends Component
         return view('livewire.courses.delete');
     }
 
+    public function updated($propertyName)
+    {
+        $this->validateOnly($propertyName);
+    }
+
     public function openModalToDeleteCourse()
     {
         $this->resetErrorBag();

@@ -21,8 +21,14 @@ class Delete extends Component
 
     public function openModalToDeleteArticle()
     {
+        $this->reset('password');
         $this->resetErrorBag();
         $this->openModal = true;
+    }
+
+    public function updated($propertyName)
+    {
+        $this->validateOnly($propertyName);
     }
 
     public function delete()

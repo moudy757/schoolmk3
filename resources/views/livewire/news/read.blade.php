@@ -29,16 +29,17 @@
                             <h1 class="py-2 px-4 w-fit">Course: {{ $newsArticle->course->name }}</h1>
                         @endunless
                         <h1 class="py-2 px-4 w-fit">By: {{ $newsArticle->user->name }}</h1>
+                        {{-- @dd($newsArticle) --}}
 
                         <div class="flex justify-between items-center gap-2">
                             @if (auth()->id() === $newsArticle->user_id ||
-                                    auth()->user()->can('new.update'))
+                                    auth()->user()->can('news.update'))
                                 {{-- Edit News Article Button --}}
                                 <livewire:news.update :newsArticle="$newsArticle"
                                     :wire:key="'edit-news-article-' . now() . $newsArticle->id" />
                             @endif
                             @if (auth()->id() === $newsArticle->user_id ||
-                                    auth()->user()->can('new.delete'))
+                                    auth()->user()->can('news.delete'))
                                 {{-- Delete News Article Button --}}
                                 <livewire:news.delete :newsArticle="$newsArticle"
                                     :wire:key="'delete-news-article-' . $newsArticle->id" />

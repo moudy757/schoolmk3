@@ -20,6 +20,11 @@ class Delete extends Component
         return view('livewire.users.delete');
     }
 
+    public function updated($propertyName)
+    {
+        $this->validateOnly($propertyName);
+    }
+
     public function openModalToDeleteUser()
     {
         $this->resetErrorBag();
