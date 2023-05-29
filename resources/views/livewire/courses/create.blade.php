@@ -1,5 +1,5 @@
 <div>
-    <x-secondary-button wire:click="openModalToCreateCourse" class="float-right mr-6 mb-4 dark:bg-gray-900">
+    <x-secondary-button wire:click="openModalToCreateCourse" class="dark:bg-gray-900">
         {{ __('Add Course') }}
     </x-secondary-button>
 
@@ -35,8 +35,8 @@
                     {{-- Level --}}
                     <div class="space-y-4">
                         <x-input-label for="level" :value="__('Level')" />
-                        <x-text-input wire:model.debounce.500='level' id="level" class="block w-full" type="text"
-                            name="level" :value="old('level')" autofocus />
+                        <x-text-input wire:model.debounce.500='level' id="level" class="block w-full"
+                            type="text" name="level" :value="old('level')" autofocus />
                         <x-input-error :messages="$errors->get('level')" class="" />
                     </div>
 

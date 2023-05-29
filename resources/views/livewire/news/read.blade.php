@@ -1,6 +1,8 @@
 <div>
     @can('news.create')
-        <livewire:news.create class="float-right" />
+        <div class="mb-4 flex justify-end">
+            <livewire:news.create />
+        </div>
     @endcan
 
     <div class="flex flex-col space-y-10 items-center justify-center 2xl:w-3/4 mx-auto" x-data="{ selected: null }">
@@ -50,7 +52,7 @@
             </div>
         @endforeach
     </div>
-    <div class="mt-10 w-11/12 mx-auto bg-gray-900 py-8 px-10 rounded-lg">
+    <div class="mt-10 w-11/12 mx-auto">
         {{ $news->onEachSide(1)->links() }}
     </div>
 </div>

@@ -25,23 +25,23 @@
             </form>
         </div>
     @endhasanyrole --}}
-    <div class="min-h-screen bg-gray-300 dark:bg-gray-800 lg:grid lg:grid-cols-12 2xl:grid-cols-10">
+    <div class="min-h-screen bg-gray-300 dark:bg-gray-800 lg:grid lg:grid-cols-12 ">
 
         {{-- @include('layouts.navigation') --}}
         <x-partials.nav />
 
-        <div class="col-span-10 2xl:col-span-9">
+        <div class="col-span-9">
 
             <!-- Page Heading -->
             {{-- @if (isset($header)) --}}
-            <header class="bg-white dark:bg-gray-900 drop-shadow-md px-10 flex justify-between">
-                <div class="max-w-7xl py-6 px-4 sm:px-6 lg:px-8">
+            <header class="bg-white dark:bg-gray-900 drop-shadow-md px-10 flex justify-between lg:rounded-b-lg">
+                <div class="max-w-7xl mt-2 lg:mt-0 py-4 lg:py-6 px-4 sm:px-6 lg:px-8">
                     {{ $header }}
                 </div>
 
                 {{-- Settings Dropdown --}}
-                <div class="hidden sm:flex sm:items-center sm:ml-6">
-                    <x-dropdown align="right" width="48" contentClasses="bg-gray-700">
+                <div class="flex items-center ml-6">
+                    <x-dropdown align="right" width="48" contentClasses="bg-gray-800">
                         <x-slot name="trigger">
                             <button class="flex text-gray-100">
                                 <div>{{ Auth::user()->name }}</div>
@@ -73,7 +73,7 @@
             {{-- @endif --}}
 
             <!-- Page Content -->
-            <main class="text-gray-100 py-14 w-full mx-auto">
+            <main class="text-gray-100 py-14 w-[90%] lg:w-full mx-auto">
                 {{ $slot }}
             </main>
         </div>

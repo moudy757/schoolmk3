@@ -35,7 +35,7 @@
                 {{ __('Nevermind') }}
             </x-secondary-button>
             <x-danger-button wire:target='dropCourse' type="submit" wire:loading.attr='disabled' form="dropCourseForm">
-                {{ __('Delete') }}
+                {{ __('Drop') }}
             </x-danger-button>
         </x-slot:buttons>
     </x-custom-modal>

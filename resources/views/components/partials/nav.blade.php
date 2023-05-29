@@ -1,8 +1,8 @@
-<nav class="bg-gray-500 dark:bg-gray-900 py-8 text-gray-200 text-xl col-span-2 2xl:col-span-1">
+<nav class="bg-gray-500 dark:bg-gray-900 py-8 px-2 text-gray-200 xl:text-lg col-span-2 lg:w-fit h-40 lg:h-full">
     <x-application-logo class="block h-10 w-auto text-indigo-600 mx-auto" />
 
-    <ul class="min-h-full p-6 mt-4 flex flex-col justify-between">
-        <div class="space-y-4">
+    <ul class="min-h-full px-4 py-6 mt-4 lg:flex lg:flex-col justify-between">
+        <div class="lg:space-y-4 flex items-center justify-between lg:block">
             @role('teacher')
                 <li class="flex gap-4 items-center">
                     <x-nav-link :href="route('teacher.index')" :active="request()->routeIs('teacher.index')" class="">

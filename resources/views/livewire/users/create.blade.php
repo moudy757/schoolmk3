@@ -1,5 +1,5 @@
 <div>
-    <div class="w-1/2 bg-gray-900 rounded-lg mx-auto py-10 px-20">
+    <div class="lg:w-1/2 bg-gray-900 rounded-lg mx-auto p-8 2xl:px-16">
         <div class="w-full mb-4 flex justify-end">
             <select wire:model="role" id="role" class="rounded-lg bg-gray-800 border-none">
                 <option value="teacher">{{ __('Teacher') }}</option>

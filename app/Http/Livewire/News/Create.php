@@ -5,9 +5,12 @@ namespace App\Http\Livewire\News;
 use App\Models\News;
 use Livewire\Component;
 use Illuminate\Validation\Rule;
+use Livewire\WithPagination;
 
 class Create extends Component
 {
+    use WithPagination;
+
     public $name;
     public $body;
     public $forWhom;
@@ -41,6 +44,7 @@ class Create extends Component
 
     protected $validationAttributes = [
         'courseId' => 'Course',
+        'forWhom' => 'For',
     ];
 
     public function getCourses()
@@ -83,5 +87,6 @@ class Create extends Component
         $this->emit('saved');
         $this->reset();
         $this->openModal = false;
+        $this->resetPage();
     }
 }
