@@ -12,6 +12,9 @@
         <x-slot:content>
 
             <div class="p-4 space-y-6">
+                <div class="h-4 text-center">
+                    <x-input-error :messages="$errors->get('grade')" class="col-span-2" />
+                </div>
                 @foreach ($students as $student)
                     <div class="grid grid-cols-2 bg-gray-900 px-8 py-4 rounded-lg">
                         <div class="space-y-4">
@@ -36,7 +39,6 @@
                                     type="text" name="grade" :value="old('grade')" autofocus
                                     wire:keydown.enter="update({{ $student->id }})" />
                             </div>
-                            <x-input-error :messages="$errors->get('grade')" class="col-span-2" />
                         </div>
                     </div>
                 @endforeach
