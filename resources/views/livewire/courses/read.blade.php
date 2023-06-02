@@ -56,8 +56,8 @@
                                     <div class="w-fit">
                                         <select wire:model="enrolled" id="enrolled"
                                             class="rounded-lg bg-gray-800 border-none">
-                                            <option value="1">{{ __('Enrolled Courses') }}</option>
                                             <option value="0">{{ __('All Courses') }}</option>
+                                            <option value="1">{{ __('Enrolled Courses') }}</option>
                                         </select>
                                     </div>
                                 @endcan
@@ -116,12 +116,13 @@
                             <option value="20">{{ __('20') }}</option>
                         </select>
                     </div>
+
                     @canany(['courses.own.enroll', 'courses.enroll'])
                         {{-- Enrolled Courses --}}
                         <div class="w-fit">
                             <select wire:model="enrolled" id="enrolled" class="rounded-lg bg-gray-800 border-none">
-                                <option value="1">{{ __('Enrolled Courses') }}</option>
                                 <option value="0">{{ __('All Courses') }}</option>
+                                <option value="1">{{ __('Enrolled Courses') }}</option>
                             </select>
                         </div>
                     @endcanany
