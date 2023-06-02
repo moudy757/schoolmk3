@@ -33,6 +33,13 @@ class UserSeeder extends Seeder
             'password' => Hash::make('admin'),
         ])->assignRole('admin');
 
+        User::create([
+            'name' => 'Other Admin',
+            'email' => 'otheradmin@mail.com',
+            'login_id' => 'otheradmin@mail.com',
+            'password' => Hash::make('admin'),
+        ])->assignRole('admin');
+
         $teacher1 = Teacher::create([
             'dob' => '1995-5-15',
         ]);
