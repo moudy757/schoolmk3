@@ -27,13 +27,15 @@
                 <x-input-error :messages="$errors->get('user.email')" class="" />
             </div>
 
-            {{-- DOB --}}
-            <div class="space-y-4">
-                <x-input-label for="user.dob" :value="__('Date of Birth')" />
-                <x-text-input wire:model.debounce.500='user.dob' id="user.dob" class="block w-full dark:bg-gray-700"
-                    type="date" />
-                <x-input-error :messages="$errors->get('user.dob')" class="" />
-            </div>
+            @if ($role != 'admin')
+                {{-- DOB --}}
+                <div class="">
+                    <x-input-label for="user.dob" :value="__('Date of Birth')" />
+                    <x-text-input wire:model.debounce.500='user.dob' id="user.dob"
+                        class="block w-full dark:bg-gray-700" type="date" />
+                    <x-input-error :messages="$errors->get('user.dob')" class="" />
+                </div>
+            @endif
 
             @if ($role == 'student')
                 {{-- Level --}}

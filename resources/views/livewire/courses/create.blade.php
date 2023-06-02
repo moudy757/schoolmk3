@@ -40,6 +40,26 @@
                         <x-input-error :messages="$errors->get('level')" class="" />
                     </div>
 
+                    @hasanyrole('super-admin|admin')
+                        {{-- Teacher --}}
+                        <div>
+                            <div class="w-full mb-4 flex gap-4 justify-between items-center">
+                                <x-input-label for="userId" :value="__('Teacher')" />
+
+                                <select wire:model="userId" id="userId"
+                                    class="rounded-lg bg-gray-900 border-none font-medium w-3/4">
+                                    <option selected value="">{{ __('Teacher Name') }}</option>
+                                    @forelse ($users as $user)
+                                        <option value="{{ $user->id }}">{{ __($user->name) }}</option>
+                                    @empty
+                                        <option disabled value="">{{ __('No teachers available!') }}</option>
+                                    @endforelse
+                                </select>
+                            </div>
+                            <x-input-error :messages="$errors->get('userId')" class="dark:text-red-700" />
+                        </div>
+                    @endhasanyrole
+
                 </form>
             </div>
         </x-slot:content>

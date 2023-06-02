@@ -178,9 +178,72 @@
                             x-ref="container{{ $user->id }}"
                             x-bind:style="selected == {{ $user->id }} ? 'max-height: ' + $refs.container{{ $user->id }}
                                 .scrollHeight + 'px' : ''">
-                            <div class="flex gap-2 ml-10 py-2">
-                                <h1 class="mb-2">Date of Birth:</h1>
-                                <p>{{ $user->userable->dob ?? 'N/A' }}</p>
+                            <div class="px-10 py-4">
+                                <div>
+                                    @can('users.read')
+                                        @if ($role == 'teacher')
+                                            <div class="space-y-6 w-2/3 mx-auto">
+                                                <div class="grid grid-cols-3 justify-between bg-gray-800 py-2 rounded-lg">
+                                                    <div class="px-4">Course name</div>
+                                                    <div class="px-4">No. of enrolled students
+                                                    </div>
+                                                    <div class="px-4">Actions</div>
+                                                </div>
+                                                @forelse ($user->userable->courses as $course)
+                                                    <div
+                                                        class="grid grid-cols-3 items-center justify-between bg-gray-800 py-4 px-4 rounded-lg">
+                                                        <div>
+                                                            {{ $course->name }}
+                                                        </div>
+                                                        <div>
+                                                            {{ $course->students->count() }}
+                                                        </div>
+                                                        <div>
+                                                            @can('enrolledStudents.read')
+                                                                <livewire:teacher.enrolled-students :course="$course"
+                                                                    :wire:key="'enrolled-students-' . $course->id" />
+                                                            @endcan
+                                                        </div>
+                                                    </div>
+                                                @empty
+                                                    <p class="text-center bg-gray-800 py-2 px-4 rounded-lg">
+                                                        No courses yet!
+                                                    </p>
+                                                @endforelse
+                                            </div>
+                                        @elseif($role == 'student')
+                                            <div class="flex gap-4 justify-center items-center">
+                                                <div class="w-1/3 space-y-4">
+                                                    <p class="bg-gray-800 px-4 py-2 rounded-lg">Date of Birth:
+                                                        {{ $user->userable->dob }}</p>
+                                                    <div class="bg-gray-800 px-4 py-2 rounded-lg">
+                                                        No. of courses:
+                                                        {{ $user->userable->courses->count() }}
+                                                    </div>
+                                                </div>
+
+                                                <div class="w-1/3 space-y-4">
+                                                    @forelse ($user->userable->courses as $course)
+                                                        <div>
+                                                            <div
+                                                                class="bg-gray-800 px-4 py-2 rounded-lg flex justify-between">
+                                                                <p>{{ $course->name }}</p>
+                                                                @can('courses.drop')
+                                                                    <livewire:student.drop-course :course="$course"
+                                                                        :student="$user->userable"
+                                                                        :wire:key="'drop-course-' . now() . $user->userable->id" />
+                                                                @endcan
+                                                            </div>
+                                                        </div>
+                                                    @empty
+                                                        <p class="bg-gray-800 px-4 py-2 rounded-lg">Not enrolled in any
+                                                            courses yet.</p>
+                                                    @endforelse
+                                                </div>
+                                            </div>
+                                        @endif
+                                    @endcan
+                                </div>
                             </div>
                         </div>
                         @php

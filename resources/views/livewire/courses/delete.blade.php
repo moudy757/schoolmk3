@@ -1,6 +1,6 @@
 <div>
     <x-secondary-button wire:click="openModalToDeleteCourse">
-        <i class="fa-solid fa-trash"></i>
+        <i class="fa-solid fa-trash fa-sm"></i>
     </x-secondary-button>
 
     <x-custom-modal wire:model="openModal" maxWidth="lg">

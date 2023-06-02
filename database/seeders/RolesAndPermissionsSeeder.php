@@ -30,7 +30,9 @@ class RolesAndPermissionsSeeder extends Seeder
             'courses.update',
             'courses.delete',
             'courses.enroll',
+            'courses.own.enroll',
             'courses.drop',
+            'courses.own.drop',
             'users.create',
             'users.read',
             'users.update',
@@ -88,8 +90,8 @@ class RolesAndPermissionsSeeder extends Seeder
         Role::firstOrCreate(['name' => 'teacher'])->syncPermissions($teacherPermissions);
 
         $studentPermissions = [
-            'courses.enroll',
-            'courses.drop',
+            'courses.own.enroll',
+            'courses.own.drop',
             'grades.own.read',
         ];
         Role::firstOrCreate(['name' => 'student'])->syncPermissions($studentPermissions);

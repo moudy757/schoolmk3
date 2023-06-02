@@ -1,5 +1,5 @@
 <div>
-    <x-secondary-button wire:click="openModalToViewStudents" class="my-4 dark:bg-gray-900">
+    <x-secondary-button wire:click="openModalToViewStudents" class="dark:bg-gray-900">
         {{ __('Enrolled Students') }}
     </x-secondary-button>
 
@@ -15,7 +15,7 @@
                 <div class="h-4 text-center">
                     <x-input-error :messages="$errors->get('grade')" class="col-span-2" />
                 </div>
-                @foreach ($students as $student)
+                @forelse ($students as $student)
                     <div class="grid grid-cols-2 bg-gray-900 px-8 py-4 rounded-lg">
                         <div class="space-y-4">
                             <div class="flex gap-2">
@@ -29,6 +29,10 @@
                         </div>
                         <div x-data="{ open: false }" class="grid grid-cols-2 gap-2 items-center">
                             <div class="flex gap-2 items-center">
+                                @can('courses.drop')
+                                    <livewire:student.drop-course :course="$course" :student="$student"
+                                        :wire:key="'drop-course-' . now() . $student->id" />
+                                @endcan
                                 <h1>Grade:</h1>
                                 <p @click="open = true; $wire.resetter()"
                                     class="hover:text-indigo-600 cursor-pointer bg-gray-800 py-2 px-4 rounded-lg">
@@ -41,7 +45,9 @@
                             </div>
                         </div>
                     </div>
-                @endforeach
+                @empty
+                    <p>No sudents enrolled yet!</p>
+                @endforelse
             </div>
             @if ($students->hasPages())
                 <div class="mt-4 bg-gray-900 py-4 px-8 rounded-lg">

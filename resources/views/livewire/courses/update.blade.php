@@ -1,6 +1,6 @@
 <div>
     <x-secondary-button wire:click='openModalToUpdateCourse'>
-        <i class="fa-solid fa-pen"></i>
+        <i class="fa-solid fa-pen fa-sm"></i>
     </x-secondary-button>
 
     <x-custom-modal wire:model="openModal" maxWidth="lg">
@@ -16,8 +16,8 @@
                     {{-- Name --}}
                     <div class="space-y-4">
                         <x-input-label for="course.name" :value="__('Name')" />
-                        <x-text-input wire:model.debounce.500='course.name' id="name" class="block w-full" type="text"
-                            name="name" :value="old('course.name')" autofocus />
+                        <x-text-input wire:model.debounce.500='course.name' id="name" class="block w-full"
+                            type="text" name="name" :value="old('course.name')" autofocus />
                         <x-input-error :messages="$errors->get('course.name')" class="dark:text-red-700" />
                     </div>
 
@@ -35,8 +35,8 @@
                     {{-- Level --}}
                     <div class="space-y-4">
                         <x-input-label for="course.level" :value="__('Level')" />
-                        <x-text-input wire:model.debounce.500='course.level' id="level" class="block w-full" type="text"
-                            name="level" :value="old('course.level')" autofocus />
+                        <x-text-input wire:model.debounce.500='course.level' id="level" class="block w-full"
+                            type="text" name="level" :value="old('course.level')" autofocus />
                         <x-input-error :messages="$errors->get('course.level')" class="dark:text-red-700" />
                     </div>
 

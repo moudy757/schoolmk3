@@ -38,6 +38,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('home', AdminIndex::class)->name('index');
             Route::get('users', AdminIndex::class)->name('users');
             Route::get('add-users', AdminIndex::class)->name('add-user');
+            Route::get('courses', Read::class)->name('courses');
         });
         Route::group([
             'middleware' => ['role:teacher'],

@@ -24,16 +24,19 @@
                     x-bind:style="selected == {{ $newsArticle->id }} ? 'max-height: ' + $refs.container{{ $newsArticle->id }}
                         .scrollHeight + 'px' : ''">
                     <div
-                        class="text-left bg-gray-700 p-4 rounded-lg rounded-t-none transition-all duration-500 flex justify-between">
+                        class="text-left bg-gray-700 p-4 rounded-lg rounded-t-none transition-all duration-500 flex justify-between text-sm">
 
                         <h1 class="py-2 px-4 w-fit">Posted: {{ $newsArticle->created_at->diffForHumans() }}</h1>
                         @unless (empty($newsArticle->course))
                             <h1 class="py-2 px-4 w-fit">Course: {{ $newsArticle->course->name }}</h1>
                         @endunless
-                        <h1 class="py-2 px-4 w-fit">By: {{ $newsArticle->user->name }}</h1>
-                        {{-- @dd($newsArticle) --}}
+                        @if ($newsArticle->user->hasAnyRole('super-admin', 'admin'))
+                            <h1 class="py-2 px-4 w-fit">By: Staff</h1>
+                        @else
+                            <h1 class="py-2 px-4 w-fit">By: {{ $newsArticle->user->name }}</h1>
+                        @endif
 
-                        <div class="flex justify-between items-center gap-2">
+                        <div class="flex flex-col lg:flex-row justify-center lg:justify-between items-center gap-2">
                             @if (auth()->id() === $newsArticle->user_id ||
                                     auth()->user()->can('news.update'))
                                 {{-- Edit News Article Button --}}

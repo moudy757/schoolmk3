@@ -1,5 +1,5 @@
 <div>
-    <x-secondary-button wire:click="openModalToDropCourse"><i class="fa-solid fa-minus"></i></x-secondary-button>
+    <x-secondary-button wire:click="openModalToDropCourse"><i class="fa-solid fa-minus fa-sm"></i></x-secondary-button>
 
     <x-custom-modal wire:model="openModal" maxWidth="lg">
         <x-slot:title>

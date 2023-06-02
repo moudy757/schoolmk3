@@ -23,31 +23,47 @@ class Read extends Component
 
     public function render()
     {
+        return view('livewire.courses.read', [
+            'courses' => $this->getCourses(),
+        ]);
+    }
+
+    public function getCourses()
+    {
         if (auth()->user()->hasRole('teacher')) {
-            return view('livewire.courses.read', [
-                'courses' => Course::search($this->search)
-                    ->where('teacher_id', auth()->user()->userable->id)
-                    ->orderBy($this->orderBy, $this->orderAsc ? 'asc' : 'desc')
-                    ->paginate($this->perPage),
-            ]);
+            return Course::search($this->search)
+                ->where('teacher_id', auth()->user()->userable->id)
+                ->orderBy($this->orderBy, $this->orderAsc ? 'asc' : 'desc')
+                ->paginate($this->perPage);
         } elseif (auth()->user()->hasRole('student')) {
-            return view('livewire.courses.read', [
-                'courses' => Course::search($this->search)
-                    ->where('level', auth()->user()->userable->level)
-                    ->when(
-                        $this->enrolled,
-                        function ($query) {
-                            return $query->whereRelation('students', 'student_id', auth()->user()->userable->id);
-                        },
-                        function ($query) {
-                            return $query->whereDoesntHave('students', function ($query) {
-                                $query->where('student_id', auth()->user()->userable->id);
-                            });
-                        }
-                    )
-                    ->orderBy($this->orderBy, $this->orderAsc ? 'asc' : 'desc')
-                    ->paginate($this->perPage),
-            ]);
+            return Course::search($this->search)
+                ->where('level', auth()->user()->userable->level)
+                ->when(
+                    $this->enrolled,
+                    function ($query) {
+                        return $query->whereRelation('students', 'student_id', auth()->user()->userable->id);
+                    },
+                    function ($query) {
+                        return $query->whereDoesntHave('students', function ($query) {
+                            $query->where('student_id', auth()->user()->userable->id);
+                        });
+                    }
+                )
+                ->orderBy($this->orderBy, $this->orderAsc ? 'asc' : 'desc')
+                ->paginate($this->perPage);
+        } else {
+            return Course::search($this->search)
+                ->when(
+                    $this->enrolled,
+                    function ($query) {
+                        return $query->whereHas('students');
+                    },
+                    function ($query) {
+                        return $query->doesntHave('students');
+                    }
+                )
+                ->orderBy($this->orderBy, $this->orderAsc ? 'asc' : 'desc')
+                ->paginate($this->perPage);
         }
     }
 

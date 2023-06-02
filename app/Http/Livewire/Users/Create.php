@@ -28,7 +28,7 @@ class Create extends Component
         return [
             'user.name' => ['required', 'min:2', 'string', 'max:50', 'regex:/^[a-zA-Z0-9\s]+$/'],
             'user.email' => ['required', 'email', 'unique:users,email'],
-            'user.dob' => ['required', 'date'],
+            'user.dob' => [Rule::requiredIf($this->role != 'admin'), 'date'],
             'user.level' => [Rule::requiredIf($this->role == 'student'), 'numeric', 'min:1', 'max:3'],
         ];
     }

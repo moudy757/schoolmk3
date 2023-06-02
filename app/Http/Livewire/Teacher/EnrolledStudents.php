@@ -24,6 +24,7 @@ class EnrolledStudents extends Component
 
     protected $listeners = [
         'openModalToViewStudents',
+        'saved' => '$refresh',
     ];
 
     public function rules()

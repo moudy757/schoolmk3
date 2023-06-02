@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\News;
 
+use App\Models\Course;
 use App\Models\News;
 use Livewire\Component;
 use Illuminate\Validation\Rule;
@@ -51,6 +52,10 @@ class Create extends Component
     {
         if (auth()->user()->hasRole('teacher')) {
             return auth()->user()->userable->courses;
+        } elseif (auth()->user()->hasRole('super-admin')) {
+            return Course::orderBy('name', 'asc')->limit(500)
+                ->without('students')
+                ->get(['id', 'name']);
         }
     }
 

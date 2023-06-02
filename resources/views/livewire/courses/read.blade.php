@@ -116,7 +116,7 @@
                             <option value="20">{{ __('20') }}</option>
                         </select>
                     </div>
-                    @can('courses.enroll')
+                    @canany(['courses.own.enroll', 'courses.enroll'])
                         {{-- Enrolled Courses --}}
                         <div class="w-fit">
                             <select wire:model="enrolled" id="enrolled" class="rounded-lg bg-gray-800 border-none">
@@ -124,7 +124,7 @@
                                 <option value="0">{{ __('All Courses') }}</option>
                             </select>
                         </div>
-                    @endcan
+                    @endcanany
                 </div>
             </div>
             {{-- Table --}}
@@ -163,16 +163,18 @@
                                         <i class="fa-solid fa-eye"></i></span>
                                     </x-secondary-button>
 
-                                    @if (!$enrolled)
-                                        @can('courses.enroll')
-                                            <livewire:student.enroll-course :course="$course"
-                                                :wire:key="'enroll-course-' . $course->id" />
-                                        @endcan
-                                    @elseif ($enrolled)
-                                        @can('courses.drop')
-                                            <livewire:student.drop-course :course="$course"
-                                                :wire:key="'drop-course-' . $course->id" />
-                                        @endcan
+                                    @if (auth()->user()->hasRole('student'))
+                                        @if (!$enrolled)
+                                            @can('courses.own.enroll')
+                                                <livewire:student.enroll-course :course="$course"
+                                                    :wire:key="'enroll-course-'. now() . $course->id" />
+                                            @endcan
+                                        @elseif ($enrolled)
+                                            @can('courses.own.drop')
+                                                <livewire:student.drop-course :course="$course"
+                                                    :wire:key="'drop-course-'. now() . $course->id" />
+                                            @endcan
+                                        @endif
                                     @endif
 
                                     @can('courses.update')
@@ -189,16 +191,24 @@
                             </div>
                         </div>
                         {{-- Course Details --}}
-                        <div class="relative overflow-y-hidden overflow-x-scroll transition-all max-h-0 duration-700"
-                            style="" x-ref="container{{ $course->id }}"
+                        <div class="relative overflow-hidden transition-all max-h-0 duration-700" style=""
+                            x-ref="container{{ $course->id }}"
                             x-bind:style="selected == {{ $course->id }} ? 'max-height: ' + $refs.container{{ $course->id }}
                                 .scrollHeight + 'px' : ''">
-                            <div class="ml-4 px-8 text-left">
-                                <h1 class="font-bold mb-2">Description</h1>
-                                <p>{{ $course->description }}</p>
+                            <div class="flex gap-8 px-10 py-4 items-center">
+                                <div class="text-left w-1/2">
+                                    <h1 class="font-bold mb-2 bg-gray-800 rounded-lg py-2 px-4 w-fit">Description:</h1>
+                                    <p class="bg-gray-800 rounded-lg py-2 px-4">{{ $course->description }}</p>
+                                </div>
                                 @can('enrolledStudents.read')
-                                    <livewire:teacher.enrolled-students :course="$course"
-                                        :wire:key="'enrolled-students-' . $course->id" />
+                                    <div class="flex flex-col space-y-4">
+                                        <p class="bg-gray-800 py-2 px-4 rounded-lg w-fit">No. of enrolled students:
+                                            {{ $course->students->count() }}</p>
+                                        <div>
+                                            <livewire:teacher.enrolled-students :course="$course"
+                                                :wire:key="'enrolled-students-' . $course->id" />
+                                        </div>
+                                    </div>
                                 @endcan
                             </div>
                         </div>
@@ -240,5 +250,9 @@
                 color: '#f3f4f6',
             });
         });
+
+        window.addEventListener('refresh-page', event => {
+            window.location.reload(false);
+        })
     </script>
 @endpush
