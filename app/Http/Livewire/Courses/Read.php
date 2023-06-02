@@ -15,7 +15,7 @@ class Read extends Component
     public $orderBy = 'name';
     public $orderAsc = true;
 
-    public $enrolled = true;
+    public $enrolled = false;
 
     protected $listeners = [
         'saved' => '$refresh',
