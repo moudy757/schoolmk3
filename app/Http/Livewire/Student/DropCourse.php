@@ -8,12 +8,18 @@ use Illuminate\Support\Facades\Auth;
 class DropCourse extends Component
 {
     public $course;
+    public $student;
     public $password;
     public $openModal = false;
 
     protected $rules = [
         'password' => ['required', 'current_password'],
     ];
+
+    public function updated($propertyName)
+    {
+        $this->validateOnly($propertyName);
+    }
 
     public function render()
     {
@@ -22,6 +28,7 @@ class DropCourse extends Component
 
     public function openModalToDropCourse()
     {
+        $this->reset('password');
         $this->resetErrorBag();
         $this->openModal = true;
     }
@@ -30,14 +37,24 @@ class DropCourse extends Component
     {
         $this->validate();
 
-        $student = Auth::user()->userable;
-        $student->courses()->detach($this->course->id);
+        if (Auth::user()->hasRole('student')) {
+            $student = Auth::user()->userable;
+            $student->courses()->detach($this->course->id);
 
-        $this->emit('updated', [
-            'title'         => 'Course dropped successfully!',
-            'icon'          => 'success',
-            'iconColor'     => 'green',
-        ]);
+            $this->emit('updated', [
+                'title'         => 'Course dropped successfully!',
+                'icon'          => 'success',
+                'iconColor'     => 'green',
+            ]);
+            $this->dispatchBrowserEvent('refresh-page');
+        } else {
+            $this->course->students()->detach($this->student->id);
+            $this->emit('updated', [
+                'title'         => 'Student dropped successfully!',
+                'icon'          => 'success',
+                'iconColor'     => 'green',
+            ]);
+        }
 
         $this->emit('saved');
         $this->reset();

@@ -6,6 +6,7 @@ use App\Models\Course;
 use App\Models\Student;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Illuminate\Validation\Rule;
 
 class EnrolledStudents extends Component
 {
@@ -23,11 +24,16 @@ class EnrolledStudents extends Component
 
     protected $listeners = [
         'openModalToViewStudents',
+        'saved' => '$refresh',
     ];
 
-    protected $rules = [
-        'grade' => ['required', 'numeric', 'min:1', 'max:100']
-    ];
+    public function rules()
+    {
+        $rules = [
+            'grade' => ['required', 'numeric', 'min:1', 'max:100']
+        ];
+        return $rules;
+    }
 
     public function openModalToViewStudents()
     {

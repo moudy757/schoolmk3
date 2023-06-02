@@ -20,26 +20,80 @@ class RolesAndPermissionsSeeder extends Seeder
         // Reset cached roles and permissions
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
-        // create permissions
-        // Permission::create(['name' => 'edit articles']);
-        // Permission::create(['name' => 'delete articles']);
-        // Permission::create(['name' => 'publish articles']);
-        // Permission::create(['name' => 'unpublish articles']);
+        $permissions = [
+            'admins.create',
+            'admins.read',
+            'admins.update',
+            'admins.delete',
+            'courses.create',
+            'courses.read',
+            'courses.update',
+            'courses.delete',
+            'courses.enroll',
+            'courses.own.enroll',
+            'courses.drop',
+            'courses.own.drop',
+            'users.create',
+            'users.read',
+            'users.update',
+            'users.delete',
+            'news.create',
+            'news.create.admin',
+            'news.create.students',
+            'news.read',
+            'news.update',
+            'news.delete',
+            'enrolledStudents.read',
+            'grades.read',
+            'grades.update',
+            'grades.own.read',
+        ];
 
-        // create roles and assign created permissions
+        foreach ($permissions as $permission) {
+            Permission::firstOrCreate(['name' => $permission]);
+        }
 
-        // this can be done as separate statements
-        // $role = Role::create(['name' => 'writer']);
-        // $role->givePermissionTo('edit articles');
+        Role::firstOrCreate(['name' => 'super-admin']);
 
-        // or may be done by chaining
-        // $role = Role::create(['name' => 'moderator'])
-        //     ->givePermissionTo(['publish articles', 'unpublish articles']);
+        $adminPermissions = [
+            'courses.read',
+            'courses.update',
+            'courses.delete',
+            'courses.enroll',
+            'courses.drop',
+            'users.create',
+            'users.read',
+            'users.update',
+            'users.delete',
+            'news.create',
+            'news.read',
+            'news.update',
+            'news.delete',
+            'enrolledStudents.read',
+            'grades.read',
+            'grades.update',
+            'news.create.admin',
+        ];
+        Role::firstOrCreate(['name' => 'admin'])->syncPermissions($adminPermissions);
 
-        // $role = Role::create(['name' => 'super-admin']);
-        $role = Role::create(['name' => 'admin']);
-        $role = Role::create(['name' => 'teacher']);
-        $role = Role::create(['name' => 'student']);
-        // $role->givePermissionTo(Permission::all());
+        $teacherPermissions = [
+            'courses.create',
+            'courses.read',
+            'courses.update',
+            'courses.delete',
+            'enrolledStudents.read',
+            'grades.read',
+            'grades.update',
+            'news.create.students',
+            'news.create',
+        ];
+        Role::firstOrCreate(['name' => 'teacher'])->syncPermissions($teacherPermissions);
+
+        $studentPermissions = [
+            'courses.own.enroll',
+            'courses.own.drop',
+            'grades.own.read',
+        ];
+        Role::firstOrCreate(['name' => 'student'])->syncPermissions($studentPermissions);
     }
 }

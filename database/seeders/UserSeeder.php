@@ -19,17 +19,17 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::create([
-        //     'name' => 'Super Admin',
-        //     'email' => 'super@mail.com',
-        //     'login_id' => 'SUPER-' . date("Y") . str_pad(1, 3, '0', STR_PAD_LEFT),
-        //     'password' => Hash::make('super'),
-        // ])->assignRole('super-admin');
+        User::create([
+            'name' => 'Super Admin',
+            'email' => 'super@mail.com',
+            'login_id' => 'super' . date("Y") . str_pad(1, 3, '0', STR_PAD_LEFT),
+            'password' => Hash::make('super'),
+        ])->assignRole('super-admin');
 
         User::create([
             'name' => 'Admin',
             'email' => 'admin@mail.com',
-            'login_id' => 'admin' . date("Y") . str_pad(1, 3, '0', STR_PAD_LEFT),
+            'login_id' => 'admin@mail.com',
             'password' => Hash::make('admin'),
         ])->assignRole('admin');
 
@@ -55,7 +55,7 @@ class UserSeeder extends Seeder
             'password' => Hash::make('teacher'),
         ])->assignRole('teacher');
 
-        for ($i = 1; $i <= 10; $i++) {
+        for ($i = 1; $i <= 4; $i++) {
             $this->course->run($teacher1->id);
             $this->course->run($teacher2->id);
         }
@@ -72,20 +72,20 @@ class UserSeeder extends Seeder
             'password' => Hash::make('student'),
         ])->assignRole('student');
 
-        for ($i = 1; $i <= 19; $i++) {
+        for ($i = 1; $i <= 30; $i++) {
             $student2 = Student::create([
                 'dob' => '2005-5-15',
                 'level' => '3'
             ]);
 
-            $student2->user()->create([
+            $user = $student2->user()->create([
                 'name' => fake()->name(),
                 'email' => fake()->unique()->email(),
                 'login_id' => 'st' . date("Y") . str_pad($student2->id, 3, '0', STR_PAD_LEFT),
                 'password' => Hash::make('student'),
             ])->assignRole('student');
 
-            $student2->courses()->syncWithoutDetaching([1, ['student_name' => $student2->name]]);
+            $student2->courses()->attach(1, ['student_name' => $user->name]);
         }
     }
 }

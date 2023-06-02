@@ -15,6 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->text('body');
+            $table->string('for_whom');
+
+            $table->foreignId('course_id')->nullable()->constrained();
+            $table->foreignId('user_id')->constrained();
 
             $table->softDeletes();
 

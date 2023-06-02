@@ -19,8 +19,14 @@ class Delete extends Component
         return view('livewire.courses.delete');
     }
 
+    public function updated($propertyName)
+    {
+        $this->validateOnly($propertyName);
+    }
+
     public function openModalToDeleteCourse()
     {
+        $this->reset('password');
         $this->resetErrorBag();
         $this->openModal = true;
     }
@@ -28,13 +34,21 @@ class Delete extends Component
     public function delete()
     {
         $this->validate();
-        $this->course->delete();
+        if ($this->course->students->count() > 0) {
+            $this->emit('updated', [
+                'title'         => 'Course has students enrolled and cannot be deleted!',
+                'icon'          => 'error',
+                'iconColor'     => 'red',
+            ]);
+        } else {
+            $this->course->delete();
 
-        $this->emit('updated', [
-            'title'         => 'Course deleted successfully!',
-            'icon'          => 'success',
-            'iconColor'     => 'green',
-        ]);
+            $this->emit('updated', [
+                'title'         => 'Course deleted successfully!',
+                'icon'          => 'success',
+                'iconColor'     => 'green',
+            ]);
+        }
 
         $this->emit('saved');
         $this->reset();

@@ -18,13 +18,13 @@
                 </h2>
 
                 <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                    {{ __('Please enter deletion password to confirm.') }}
+                    {{ __('Please enter your password to confirm.') }}
                 </p>
 
                 <div class="mt-6">
                     <x-input-label for="password" value="{{ __('Password') }}" class="sr-only" />
 
-                    <x-text-input wire:model.lazy='password' id="password" name="password" type="password"
+                    <x-text-input wire:model.debounce.500='password' id="password" name="password" type="password"
                         class="mt-1 block w-full" placeholder="{{ __('Password') }}" />
 
                     <x-input-error :messages="$errors->get('password')" class="mt-2" />

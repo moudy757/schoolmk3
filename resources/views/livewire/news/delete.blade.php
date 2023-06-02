@@ -22,10 +22,10 @@
                 <div class="mt-6">
                     <x-input-label for="password" value="{{ __('Password') }}" class="sr-only" />
 
-                    <x-text-input wire:model.lazy='password' id="password" name="password" type="password"
+                    <x-text-input wire:model.debounce.500='password' id="password" name="password" type="password"
                         class="mt-1 block w-full" placeholder="{{ __('Password') }}" />
 
-                    <x-input-error :messages="$errors->userDeletion->get('password')" class="mt-2" />
+                    <x-input-error :messages="$errors->get('password')" class="mt-2" />
                 </div>
             </form>
         </x-slot:content>
@@ -34,7 +34,7 @@
                 class="dark:hover:bg-indigo-600 focus:ring-indigo-600">
                 {{ __('Nevermind') }}
             </x-secondary-button>
-            <x-danger-button wire:target='delete' type="submit" wire:loading.attr='disabled' form="deleteArticleForm">
+            <x-danger-button wire:target='delete' type='submit' wire:loading.attr='disabled' form="deleteArticleForm">
                 {{ __('Delete') }}
             </x-danger-button>
         </x-slot:buttons>

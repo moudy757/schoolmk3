@@ -5,6 +5,8 @@ namespace App\Http\Livewire\Users;
 use App\Mail\UserAdded;
 use App\Models\Student;
 use App\Models\Teacher;
+use App\Models\User;
+use Illuminate\Support\Facades\Gate;
 use Livewire\Component;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Hash;
@@ -26,7 +28,7 @@ class Create extends Component
         return [
             'user.name' => ['required', 'min:2', 'string', 'max:50', 'regex:/^[a-zA-Z0-9\s]+$/'],
             'user.email' => ['required', 'email', 'unique:users,email'],
-            'user.dob' => ['required', 'date'],
+            'user.dob' => [Rule::requiredIf($this->role != 'admin'), 'date'],
             'user.level' => [Rule::requiredIf($this->role == 'student'), 'numeric', 'min:1', 'max:3'],
         ];
     }
@@ -54,7 +56,7 @@ class Create extends Component
                 'dob' => $this->user['dob'],
             ]);
             $password = 'teacher';
-            $role = 'Teacher';
+            $role = 'teacher';
             $login_id = 'tc';
         } elseif ($this->role == 'student') {
             $user = Student::create([
@@ -62,16 +64,30 @@ class Create extends Component
                 'dob' => $this->user['dob'],
             ]);
             $password = 'student';
-            $role = 'Student';
+            $role = 'student';
             $login_id = 'st';
+        } elseif ($this->role == 'admin' && Gate::allows('admins.create')) {
+            $createdUser = User::create([
+                'name' => $this->user['name'],
+                'email' => $this->user['email'],
+                'login_id' => $this->user['email'],
+                'password' => Hash::make('admin'),
+            ])->assignRole('admin');
+            $password = 'admin';
+            $role = 'admin';
+            $login_id = $this->user['email'];
+        } else {
+            abort(403);
         }
 
-        $createdUser = $user->user()->create([
-            'name' => $this->user['name'],
-            'email' => $this->user['email'],
-            'login_id' => $login_id . date("Y") . str_pad($user->id, 3, '0', STR_PAD_LEFT),
-            'password' => Hash::make($password),
-        ])->assignRole($role);
+        if ($this->role == 'teacher' || $this->role == 'student') {
+            $createdUser = $user->user()->create([
+                'name' => $this->user['name'],
+                'email' => $this->user['email'],
+                'login_id' => $login_id . date("Y") . str_pad($user->id, 3, '0', STR_PAD_LEFT),
+                'password' => Hash::make($password),
+            ])->assignRole($role);
+        }
 
         $userData = [
             'id' => $createdUser->login_id,

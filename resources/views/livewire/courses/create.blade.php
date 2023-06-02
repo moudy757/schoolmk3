@@ -1,5 +1,5 @@
 <div>
-    <x-secondary-button wire:click="openModalToCreateCourse" class="float-right mr-6 mb-4 dark:bg-gray-900">
+    <x-secondary-button wire:click="openModalToCreateCourse" class="dark:bg-gray-900">
         {{ __('Add Course') }}
     </x-secondary-button>
 
@@ -35,10 +35,30 @@
                     {{-- Level --}}
                     <div class="space-y-4">
                         <x-input-label for="level" :value="__('Level')" />
-                        <x-text-input wire:model.debounce.500='level' id="level" class="block w-full" type="text"
-                            name="level" :value="old('level')" autofocus />
+                        <x-text-input wire:model.debounce.500='level' id="level" class="block w-full"
+                            type="text" name="level" :value="old('level')" autofocus />
                         <x-input-error :messages="$errors->get('level')" class="" />
                     </div>
+
+                    @hasanyrole('super-admin|admin')
+                        {{-- Teacher --}}
+                        <div>
+                            <div class="w-full mb-4 flex gap-4 justify-between items-center">
+                                <x-input-label for="userId" :value="__('Teacher')" />
+
+                                <select wire:model="userId" id="userId"
+                                    class="rounded-lg bg-gray-900 border-none font-medium w-3/4">
+                                    <option selected value="">{{ __('Teacher Name') }}</option>
+                                    @forelse ($users as $user)
+                                        <option value="{{ $user->id }}">{{ __($user->name) }}</option>
+                                    @empty
+                                        <option disabled value="">{{ __('No teachers available!') }}</option>
+                                    @endforelse
+                                </select>
+                            </div>
+                            <x-input-error :messages="$errors->get('userId')" class="dark:text-red-700" />
+                        </div>
+                    @endhasanyrole
 
                 </form>
             </div>
