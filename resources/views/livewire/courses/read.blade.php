@@ -51,7 +51,7 @@
                                         <option value="0">{{ __('Descending') }}</option>
                                     </select>
                                 </div>
-                                @can('courses.enroll')
+                                @can('courses.own.enroll')
                                     {{-- Enrolled Courses --}}
                                     <div class="w-fit">
                                         <select wire:model="enrolled" id="enrolled"
